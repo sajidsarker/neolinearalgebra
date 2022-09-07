@@ -1,12 +1,12 @@
 # NEO Linear Algebra
 
-**NEO Linear Algebra** is a lightweight Python package designed for Matrix operations in Linear Algebra.
-
 **Author:** Sajid Al Sanai
 
 **License:** MIT License
 
 ## 1. Motivation
+
+**NEO Linear Algebra** is a lightweight Python package designed for Matrix operations in Linear Algebra.
 
 [...]
 
@@ -16,12 +16,12 @@ This project consists of a directory for a singular *Matrix* class file.
 
 You may install this package locally on your machine or download through the Python pip package manager.
 
-To install this package locally on your machine, use the following bash code in a UNIX-based environment:
+To download this repository and install the package locally on your machine, use the following bash code in a UNIX-based environment:
 
 ```bash
-python3 -m pip install --upgrade pip
-git clone ...
+git clone https://www.github.com/sajidsarker/neolinearalgebra.git
 cd neolinearalgebra/
+python3 -m pip install --upgrade pip
 pip install .
 ```
 
