@@ -19,7 +19,7 @@ You may install this package locally on your machine or download through the Pyt
 To download this repository and install the package locally on your machine, use the following bash code in a UNIX-based environment:
 
 ```bash
-git clone https://www.github.com/sajidsarker/neolinearalgebra.git
+git clone https://github.com/sajidsarker/neolinearalgebra.git
 cd neolinearalgebra/
 python3 -m pip install --upgrade pip
 pip install .
@@ -36,8 +36,12 @@ python3 -m pip install neolinearalgebra
 
 [...]
 
-## 4. Documentation
+## 4. Usage
 
 [...]
 
+## 5. Documentation
+
 Docstrings highlight the behaviour of class attributes and class methods within files in this repository. For more detailed information, you may consult my [blog post](https://sajidsarker.github.io/) for a reproduction of documentation on package functionality.
+
+[...]
