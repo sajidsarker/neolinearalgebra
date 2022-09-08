@@ -6,7 +6,7 @@ class Matrix:
     
     def __init__(self, data):
         if self.check_integrity(data) == False:
-            raise Exception('Matrix is incorrectly configured with row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
+            raise Exception('Matrix is empty or incorrectly configured with row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
         self.data = data
         self.rows = len(data)
         self.cols = len(data[0])
@@ -31,6 +31,9 @@ class Matrix:
         ncols = [len(x) for x in data]
         if sum(ncols) / len(ncols) != ncols[0]:
             return False
+
+	if ncols[0] == 0:
+	    return False
         
         # Check if provided matrix contains values of type int or float only
         for i in range(len(data)):
