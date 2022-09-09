@@ -69,7 +69,7 @@ class Matrix:
         for i in range(self.rows):
             for j in range(self.cols):
                 matrix.append(self.data[i][j]**2)
-        return math.sqrst(sum(matrix))
+        return math.sqrt(sum(matrix))
 
     def transpose(self) -> Matrix:
         matrix, row = [], []
