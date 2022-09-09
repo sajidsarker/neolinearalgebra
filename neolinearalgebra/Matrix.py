@@ -1,12 +1,10 @@
-#!/usr/bin/python3
-
 import math
 
 class Matrix:
     
     def __init__(self, data):
         if self.check_integrity(data) == False:
-            raise Exception('Matrix is empty or incorrectly configured with row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
+            raise Exception('Matrix is incorrectly configured with empty matrix or row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
         self.data = data
         self.rows = len(data)
         self.cols = len(data[0])
@@ -31,9 +29,10 @@ class Matrix:
         ncols = [len(x) for x in data]
         if sum(ncols) / len(ncols) != ncols[0]:
             return False
-
-	if ncols[0] == 0:
-	    return False
+        
+        # Check if provided matrix has empty columns
+        if ncols[0] == 0:
+            return False
         
         # Check if provided matrix contains values of type int or float only
         for i in range(len(data)):
@@ -70,7 +69,7 @@ class Matrix:
         for i in range(self.rows):
             for j in range(self.cols):
                 matrix.append(self.data[i][j]**2)
-        return math.sqrt(sum(matrix))
+        return math.sqrst(sum(matrix))
 
     def transpose(self) -> Matrix:
         matrix, row = [], []
@@ -88,11 +87,28 @@ class Matrix:
         matrix = [[1], [0]]
         return Matrix(matrix)
 
-    # TODO
     def determinant(self) -> float:
         if self.shape[0] != self.shape[1] and self.shape[0] < 2:
             raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix with dimensions greater than or equal to (2, 2).')
-        return 0
+
+        matrix, data = self.data, self.data
+        indices = list(range(len(matrix)))
+        det = 0
+
+        if len(matrix) == 2 and len(matrix[0]) == 2:
+            det = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
+            return det
+        
+        for focus_column in indices:
+            matrix.remove(matrix[0])
+            rows = len(matrix)
+            for i in range(rows):
+                matrix[i] = matrix[i][0:focus_column].extend(matrix[i][focus_column+1:])
+
+        sub_det = Matrix(matrix).determinant()
+        det += (-1)**(focus_column % 2) * matrix[0][focus_column] * sub_det
+
+        return det
 
     def __add__(self, other) -> Matrix:
         if other.shape != self.shape:
