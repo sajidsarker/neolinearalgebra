@@ -5,17 +5,20 @@ class Matrix:
     def __init__(self, data):
         if self.check_integrity(data) == False:
             raise Exception('Matrix is incorrectly configured with empty matrix or row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
+
         self.data = data
         self.rows = len(data)
         self.cols = len(data[0])
         self.shape = (self.rows, self.cols)
         self.size = self.rows * self.cols
 
+
     def check_integrity(self, data) -> bool:
         '''
         Args - data (list): ...
         Returns - bool
         '''
+
         # Check if provided matrix is a list
         if isinstance(data, list) == False:
             return False
@@ -42,11 +45,13 @@ class Matrix:
 
         return True
 
+
     def assign(self, row, col, value) -> None:
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
 
         self.data[row][col] = value
+
 
     def fill(self, rows, cols, value) -> None:
         if isinstance(value, (int, float)) == False:
@@ -54,44 +59,48 @@ class Matrix:
 
         for i in range(rows[0], rows[1], 1):
             for j in range(cols[0], cols[1], 1):
-                self.assign(i, j, value)
-    
+                self.data[i][j] = value
+
+
     def retrieve(self, row, col) -> (int, float):
         return self.data[row][col]
 
+
     def diagonal(self) -> object:
-        matrix = []
+        output = []
 
         for i in range(self.rows):
             if i < self.cols:
-                matrix.append([self.data[i][i]])
+                output.append([self.data[i][i]])
 
-        return Matrix(matrix)
-    
+        return Matrix(output)
+
+
     def magnitude(self) -> float:
         if not (self.shape[0] == 1 or self.shape[1] == 1):
             raise Exception('Matrix must be a row or column vector only.')
 
-        matrix = []
+        output = []
 
         for i in range(self.rows):
             for j in range(self.cols):
-                matrix.append(self.data[i][j]**2)
+                output.append(self.data[i][j]**2)
 
-        return math.sqrt(sum(matrix))
+        return math.sqrt(sum(output))
+
 
     def transpose(self) -> object:
-        matrix, row = [], []
+        output, row = [], []
 
         for j in range(self.cols):
             for i in range(self.rows):
                 row.append(self.data[i][j])
-            matrix.append(row)
+            output.append(row)
             row = []
 
-        return Matrix(matrix)
+        return Matrix(output)
 
-    # TODO
+
     def inverse(self) -> object:
         if self.shape[0] != self.shape[1] and self.shape[0] < 2:
             raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix.')
@@ -126,28 +135,30 @@ class Matrix:
 
         return Matrix(adjugate_matrix)
 
+
     def determinant(self) -> float:
         if self.shape[0] != self.shape[1]:
             raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
-        matrix, det = self.data, 0
-        indices = list(range(len(matrix)))
+        output, det = self.data, 0
+        indices = list(range(len(output)))
 
-        if len(matrix) == 1 and len(matrix[0]) == 1:
-            return matrix[0][0]
+        if len(output) == 1 and len(output[0]) == 1:
+            return output[0][0]
 
-        if len(matrix) == 2 and len(matrix[0]) == 2:
-            return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
+        if len(output) == 2 and len(output[0]) == 2:
+            return output[0][0] * output[1][1] - output[1][0] * output[0][1]
 
         for focus_column in indices:
-            principal_minor = matrix[1:]
+            principal_minor = output[1:]
             for row in range(len(principal_minor)):
                 principal_minor[row] = principal_minor[row][0:focus_column] + principal_minor[row][focus_column+1:]
 
         sub_det = Matrix(principal_minor).determinant()
-        det += (-1)**(focus_column % 2) * matrix[0][focus_column] * sub_det
+        det += (-1)**(focus_column % 2) * output[0][focus_column] * sub_det
 
         return det
+
 
     def __add__(self, other) -> object:
         if other.shape != self.shape:
@@ -163,12 +174,15 @@ class Matrix:
         self.data = data
 
         return Matrix(output)
-    
+
+
     def __ladd__(self, other) -> object:
         return self.__add__(other)
 
+
     def __radd__(self, other) -> object:
         return self.__add__(other)
+
 
     def __sub__(self, other) -> object:
         if other.shape != self.shape:
@@ -184,12 +198,15 @@ class Matrix:
         self.data = data
 
         return Matrix(output)
-    
+
+
     def __lsub__(self, other) -> object:
         return self.__sub__(other)
 
+
     def __rsub__(self, other) -> object:
         return self.__sub__(other)
+
 
     def __mul__(self, other) -> object:
         if isinstance(other, Matrix) == False:
@@ -219,11 +236,14 @@ class Matrix:
 
         return Matrix(output)
 
+
     def __lmul__(self, other) -> object:
         return self.__mul__(other)
 
+
     def __rmul__(self, other) -> object:
         return self.__mul__(other)
+
 
     def __matmul__(self, other) -> object:
         if self.cols != other.rows:
@@ -243,12 +263,15 @@ class Matrix:
         self.data = data
 
         return Matrix(output)
-    
+
+
     def __lmatmul__(self, other) -> object:
         return __matmul__(self, other)
-    
+
+
     def __rmatmul__(self, other) -> object:
         return __matmul__(self, other)
+
 
     def __repr__(self) -> str:
         matrix = str(self.data).replace('],', '],\n ')
