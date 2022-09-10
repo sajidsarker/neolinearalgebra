@@ -103,19 +103,28 @@ class Matrix:
 
         data = self.data
 
-        # Calculate the inverse of the determinant
+        # Calculate the Inverse of the Determinant
         inv_det = 1 / det
 
-        # Calculate Cofactor Matrix
-        cofactors = []
+        # Calculate Determinants of Principal Minors
+        adjugate_matrix = []
 
         for i in range(self.shape[0]):
-            cofactors.append([])
+            adjugate_matrix.append([])
             for j in range(self.shape[1]):
-                cofactors[i].append(-1**(i+j))
-        cofactors = Matrix(cofactors)
+                principal_minor = self.data
+                for row in range(len(principal_minor)):
+                    principal_minor[row].pop(j)
+                principal_minor.pop(i)
+                det_pm = Matrix(principal_minor).determinant()
+                adjugate_matrix[i].append(det_pm)
 
-        return Matrix(matrix)
+        # Calculate the Product of Cofactors, Inverse of Determinant, and Adjugate Matrix
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                adjugate_matrix[i][j] *= (-1)**(i + j) * inv_det
+
+        return Matrix(adjugate_matrix)
 
     def determinant(self) -> float:
         if self.shape[0] != self.shape[1]:
@@ -132,9 +141,8 @@ class Matrix:
 
         for focus_column in indices:
             principal_minor = matrix[1:]
-            rows = len(principal_minor)
-            for i in range(rows):
-                principal_minor[i] = principal_minor[i][0:focus_column] + principal_minor[i][focus_column+1:]
+            for row in range(len(principal_minor)):
+                principal_minor[row] = principal_minor[row][0:focus_column] + principal_minor[row][focus_column+1:]
 
         sub_det = Matrix(principal_minor).determinant()
         det += (-1)**(focus_column % 2) * matrix[0][focus_column] * sub_det
