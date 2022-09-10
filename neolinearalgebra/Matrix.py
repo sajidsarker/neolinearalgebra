@@ -92,17 +92,17 @@ class Matrix:
             raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix with dimensions greater than or equal to (2, 2).')
 
         matrix, data = self.data, self.data
-        indices = list(range(len(matrix)))
+        indices = list(range(matrix.shape[1]))
         det = 0
 
-        if len(matrix) == 2 and len(matrix[0]) == 2:
+        if matrix.shape == (2, 2):
             det = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
             return det
-        
+
         for focus_column in indices:
-            matrix.remove(matrix[0])
+            #matrix.remove(matrix[0])
             rows = len(matrix)
-            for i in range(rows):
+            for i in range(1, rows):
                 matrix[i] = matrix[i][0:focus_column].extend(matrix[i][focus_column+1:])
 
         sub_det = Matrix(matrix).determinant()
