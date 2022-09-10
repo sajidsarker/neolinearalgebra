@@ -40,14 +40,18 @@ class Matrix:
             if sum(checks) > 0:
                 return False
 
+        return True
+
     def assign(self, row, col, value) -> None:
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
+
         self.data[row][col] = value
 
     def fill(self, rows, cols, value) -> None:
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
+
         for i in range(rows[0], rows[1], 1):
             for j in range(cols[0], cols[1], 1):
                 self.assign(i, j, value)
@@ -57,34 +61,49 @@ class Matrix:
 
     def diagonal(self) -> object:
         matrix = []
+
         for i in range(self.rows):
             if i < self.cols:
                 matrix.append([self.data[i][i]])
+
         return Matrix(matrix)
     
     def magnitude(self) -> float:
         if not (self.shape[0] == 1 or self.shape[1] == 1):
             raise Exception('Matrix must be a row or column vector only.')
+
         matrix = []
+
         for i in range(self.rows):
             for j in range(self.cols):
                 matrix.append(self.data[i][j]**2)
+
         return math.sqrt(sum(matrix))
 
     def transpose(self) -> object:
         matrix, row = [], []
+
         for j in range(self.cols):
             for i in range(self.rows):
                 row.append(self.data[i][j])
             matrix.append(row)
             row = []
+
         return Matrix(matrix)
 
     # TODO
     def inverse(self) -> object:
         if self.shape[0] != self.shape[1] and self.shape[0] < 2:
             raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix.')
-        matrix = [[1], [0]]
+
+        det = self.determinant()
+
+        if det == 0:
+            raise Exception('Matrix is not invertible as the determinant is 0.')
+
+        # Code to invert matrix
+        matrix, data = [], self.data
+
         return Matrix(matrix)
 
     def determinant(self) -> float:
@@ -106,8 +125,6 @@ class Matrix:
             for i in range(rows):
                 principal_minor[i] = principal_minor[i][0:focus_column] + principal_minor[i][focus_column+1:]
 
-        print(principal_minor)
-
         sub_det = Matrix(principal_minor).determinant()
         det += (-1)**(focus_column % 2) * matrix[0][focus_column] * sub_det
 
@@ -116,12 +133,16 @@ class Matrix:
     def __add__(self, other) -> object:
         if other.shape != self.shape:
             raise Exception('Matrix dimensions are mismatched ({} != {}). Please add (2) matrices of the same dimensions.'.format(self.shape, other.shape))
+
         data, output = self.data, []
+
         for i in range(self.rows):
             output.append([])
             for j in range(self.cols):
                 output[i].append(self.data[i][j] + other.data[i][j])
+
         self.data = data
+
         return Matrix(output)
     
     def __ladd__(self, other) -> object:
@@ -133,12 +154,16 @@ class Matrix:
     def __sub__(self, other) -> object:
         if other.shape != self.shape:
             raise Exception('Matrix dimensions are mismatched ({} != {}). Please subtract (2) matrices of the same dimensions.'.format(self.shape, other.shape))
+
         data, output = self.data, []
+
         for i in range(self.rows):
             output.append([])
             for j in range(self.cols):
                 output[i].append(self.data[i][j] - other.data[i][j])
+
         self.data = data
+
         return Matrix(output)
     
     def __lsub__(self, other) -> object:
@@ -172,6 +197,7 @@ class Matrix:
                     output[i].append(self.data[i][j] * other.data[i][j])
 
         self.data = data
+
         return Matrix(output)
 
     def __lmul__(self, other) -> object:
@@ -183,7 +209,9 @@ class Matrix:
     def __matmul__(self, other) -> object:
         if self.cols != other.rows:
             raise Exception('Matrix dimensions are mismatched for matrix multiplication ({} @ {}: {} != {})'.format(self.shape, other.shape, self.shape[1], other.shape[0]))
+
         data, output = self.data, []
+
         n, m = self.shape[1], self.shape[1]
         for i in range(n):
             output.append([])
@@ -192,7 +220,9 @@ class Matrix:
                 for k in range(n):
                     value += self.data[i][k] * other.data[k][j]
                 output[i].append(value)
+
         self.data = data
+
         return Matrix(output)
     
     def __lmatmul__(self, other) -> object:
