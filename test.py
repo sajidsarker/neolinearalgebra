@@ -1,5 +1,6 @@
 import unittest
-import Matrix.py
+
+from neolinearalgebra import Matrix
 
 class TestMatrix(unittest.TestCase):
     def test_matrix_1(self):
