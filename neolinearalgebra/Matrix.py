@@ -55,7 +55,7 @@ class Matrix:
     def retrieve(self, row, col) -> (int, float):
         return self.data[row][col]
 
-    def diagonal(self) -> Matrix:
+    def diagonal(self) -> object:
         matrix = []
         for i in range(self.rows):
             if i < self.cols:
@@ -71,7 +71,7 @@ class Matrix:
                 matrix.append(self.data[i][j]**2)
         return math.sqrt(sum(matrix))
 
-    def transpose(self) -> Matrix:
+    def transpose(self) -> object:
         matrix, row = [], []
         for j in range(self.cols):
             for i in range(self.rows):
@@ -81,36 +81,39 @@ class Matrix:
         return Matrix(matrix)
 
     # TODO
-    def inverse(self) -> Matrix:
+    def inverse(self) -> object:
         if self.shape[0] != self.shape[1] and self.shape[0] < 2:
-            raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix with dimensions greater than or equal to (2, 2).')
+            raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix.')
         matrix = [[1], [0]]
         return Matrix(matrix)
 
     def determinant(self) -> float:
-        if self.shape[0] != self.shape[1] and self.shape[0] < 2:
-            raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix with dimensions greater than or equal to (2, 2).')
+        if self.shape[0] != self.shape[1]:
+            raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
-        matrix, data = self.data, self.data
-        indices = list(range(matrix.shape[1]))
-        det = 0
+        matrix, det = self.data, 0
+        indices = list(range(len(matrix)))
 
-        if matrix.shape == (2, 2):
-            det = matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
-            return det
+        if len(matrix) == 1 and len(matrix[0]) == 1:
+            return matrix[0][0]
+
+        if len(matrix) == 2 and len(matrix[0]) == 2:
+            return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
 
         for focus_column in indices:
-            #matrix.remove(matrix[0])
-            rows = len(matrix)
-            for i in range(1, rows):
-                matrix[i] = matrix[i][0:focus_column].extend(matrix[i][focus_column+1:])
+            principal_minor = matrix[1:]
+            rows = len(principal_minor)
+            for i in range(rows):
+                principal_minor[i] = principal_minor[i][0:focus_column] + principal_minor[i][focus_column+1:]
 
-        sub_det = Matrix(matrix).determinant()
+        print(principal_minor)
+
+        sub_det = Matrix(principal_minor).determinant()
         det += (-1)**(focus_column % 2) * matrix[0][focus_column] * sub_det
 
         return det
 
-    def __add__(self, other) -> Matrix:
+    def __add__(self, other) -> object:
         if other.shape != self.shape:
             raise Exception('Matrix dimensions are mismatched ({} != {}). Please add (2) matrices of the same dimensions.'.format(self.shape, other.shape))
         data, output = self.data, []
@@ -121,13 +124,13 @@ class Matrix:
         self.data = data
         return Matrix(output)
     
-    def __ladd__(self, other) -> Matrix:
+    def __ladd__(self, other) -> object:
         return self.__add__(other)
 
-    def __radd__(self, other) -> Matrix:
+    def __radd__(self, other) -> object:
         return self.__add__(other)
 
-    def __sub__(self, other) -> Matrix:
+    def __sub__(self, other) -> object:
         if other.shape != self.shape:
             raise Exception('Matrix dimensions are mismatched ({} != {}). Please subtract (2) matrices of the same dimensions.'.format(self.shape, other.shape))
         data, output = self.data, []
@@ -138,13 +141,13 @@ class Matrix:
         self.data = data
         return Matrix(output)
     
-    def __lsub__(self, other) -> Matrix:
+    def __lsub__(self, other) -> object:
         return self.__sub__(other)
 
-    def __rsub__(self, other) -> Matrix:
+    def __rsub__(self, other) -> object:
         return self.__sub__(other)
 
-    def __mul__(self, other) -> Matrix:
+    def __mul__(self, other) -> object:
         if isinstance(other, Matrix) == False:
             if isinstance(other, (int, float)) == False:
                 raise Exception('Expecting a matrix or a scalar of type int or float only.')
@@ -171,13 +174,13 @@ class Matrix:
         self.data = data
         return Matrix(output)
 
-    def __lmul__(self, other) -> Matrix:
+    def __lmul__(self, other) -> object:
         return self.__mul__(other)
 
-    def __rmul__(self, other) -> Matrix:
+    def __rmul__(self, other) -> object:
         return self.__mul__(other)
 
-    def __matmul__(self, other) -> Matrix:
+    def __matmul__(self, other) -> object:
         if self.cols != other.rows:
             raise Exception('Matrix dimensions are mismatched for matrix multiplication ({} @ {}: {} != {})'.format(self.shape, other.shape, self.shape[1], other.shape[0]))
         data, output = self.data, []
@@ -192,10 +195,10 @@ class Matrix:
         self.data = data
         return Matrix(output)
     
-    def __lmatmul__(self, other) -> Matrix:
+    def __lmatmul__(self, other) -> object:
         return __matmul__(self, other)
     
-    def __rmatmul__(self, other) -> Matrix:
+    def __rmatmul__(self, other) -> object:
         return __matmul__(self, other)
 
     def __repr__(self) -> str:
