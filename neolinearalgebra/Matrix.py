@@ -101,41 +101,6 @@ class Matrix:
         return Matrix(output)
 
 
-    def inverse(self) -> object:
-        if self.shape[0] != self.shape[1] and self.shape[0] < 2:
-            raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix.')
-
-        det = self.determinant()
-
-        if det == 0:
-            raise Exception('Matrix is not invertible as the determinant is 0.')
-
-        data = self.data
-
-        # Calculate the Inverse of the Determinant
-        inv_det = 1 / det
-
-        # Calculate Determinants of Principal Minors
-        adjugate_matrix = []
-
-        for i in range(self.shape[0]):
-            adjugate_matrix.append([])
-            for j in range(self.shape[1]):
-                principal_minor = self.data
-                for row in range(len(principal_minor)):
-                    principal_minor[row].pop(j)
-                principal_minor.pop(i)
-                det_pm = Matrix(principal_minor).determinant()
-                adjugate_matrix[i].append(det_pm)
-
-        # Calculate the Product of Cofactors, Inverse of Determinant, and Adjugate Matrix
-        for i in range(self.shape[0]):
-            for j in range(self.shape[1]):
-                adjugate_matrix[i][j] *= (-1)**(i + j) * inv_det
-
-        return Matrix(adjugate_matrix)
-
-
     def determinant(self) -> float:
         if self.shape[0] != self.shape[1]:
             raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
@@ -158,6 +123,43 @@ class Matrix:
         det += (-1)**(focus_column % 2) * output[0][focus_column] * sub_det
 
         return det
+
+
+    def inverse(self) -> object:
+        if self.shape[0] != self.shape[1] and self.shape[0] < 2:
+            raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix.')
+
+        det = self.determinant()
+
+        if det == 0:
+            raise Exception('Matrix is not invertible as the determinant is 0.')
+
+        # Calculate the Inverse of the Determinant
+        inv_det = 1 / det
+
+        # Calculate Determinants of Principal Minors
+        adjugate_matrix = []
+
+        for i in range(self.shape[0]):
+            adjugate_matrix.append([])
+            for j in range(self.shape[1]):
+                principal_minor = self.data.copy()
+                print('{}: {}'.format((i, j), principal_minor))
+                for row in range(len(principal_minor)):
+                    principal_minor[row].pop(j)
+                principal_minor.pop(i)
+                det_pm = Matrix(principal_minor).determinant()
+                print('{}: {}'.format(det_pm, principal_minor))
+                adjugate_matrix[i].append(det_pm)
+
+        print(adjugate_matrix)
+
+        # Calculate the Product of Cofactors, Inverse of Determinant, and Adjugate Matrix
+        for i in range(self.shape[0]):
+            for j in range(self.shape[1]):
+                adjugate_matrix[i][j] *= (-1)**(i + j) * inv_det
+
+        return Matrix(adjugate_matrix)
 
 
     def __add__(self, other) -> object:
