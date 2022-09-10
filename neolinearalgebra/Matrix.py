@@ -101,8 +101,19 @@ class Matrix:
         if det == 0:
             raise Exception('Matrix is not invertible as the determinant is 0.')
 
-        # Code to invert matrix
-        matrix, data = [], self.data
+        data = self.data
+
+        # Calculate the inverse of the determinant
+        inv_det = 1 / det
+
+        # Calculate Cofactor Matrix
+        cofactors = []
+
+        for i in range(self.shape[0]):
+            cofactors.append([])
+            for j in range(self.shape[1]):
+                cofactors[i].append(-1**(i+j))
+        cofactors = Matrix(cofactors)
 
         return Matrix(matrix)
 
