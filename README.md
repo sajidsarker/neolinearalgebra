@@ -69,17 +69,19 @@ The directory structure for this repository is detailed below:
 
 ```bash
 /
-├── neolinearalgebra
-│   ├── Matrix.py
-│   └── __init__.py
-├── Documentation
+├── Documentation/
 │   └── Documentation.html
+├── src/
+│   └──neolinearalgebra
+│      ├── Matrix.py
+│      └── __init__.py
 ├── .gitignore
 ├── LICENSE.txt
 ├── README.md
 ├── setup.cfg
 ├── setup.py
-└── test.py
+└── tests/
+    └── test.py
 ```
 
 Setup and configuration files for package installation is in the root **.** directory. The contents of the package is stored in **./neolinearalgebra/**. The singular class is *Matrix*.
