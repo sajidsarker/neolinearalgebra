@@ -59,7 +59,7 @@ class Matrix:
 
     def check_if_list_of_lists(self, data) -> bool:
         '''
-        Checks if the provided matrix is a list of lists
+        Checks if the provided matrix is a list of lists.
         '''
         if len(data) == 0:
             raise TypeError('Expecting matrix to be formatted as a list of lists.')
@@ -186,7 +186,7 @@ class Matrix:
 
     def determinant(self) -> float:
         if self.check_if_square_matrix(self.data) == False:
-            raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
+            raise ValueError('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
         output, det = self.data, 0
         indices = list(range(len(output)))
@@ -210,7 +210,7 @@ class Matrix:
 
     def inverse(self) -> object:
         if self.check_if_square_matrix(self.data) == False and self.rows < 2:
-            raise Exception('Matrix is non-invertible as it is a non-square matrix. Please provide a square matrix of dimensions greater than or equal to (2, 2).')
+            raise ValueError('Matrix is non-invertible as it is a non-square matrix. Please provide a square matrix of dimensions greater than or equal to (2, 2).')
 
         det = self.determinant()
 
@@ -250,7 +250,7 @@ class Matrix:
 
     def __add__(self, other) -> object:
         if other.shape != self.shape:
-            raise Exception('Matrix dimensions are mismatched ({} != {}). Please add (2) matrices of the same dimensions.'.format(self.shape, other.shape))
+            raise ValueError('Matrix dimensions are mismatched ({} != {}). Please add (2) matrices of the same dimensions.'.format(self.shape, other.shape))
 
         data, output = self.data, []
 
@@ -274,7 +274,7 @@ class Matrix:
 
     def __sub__(self, other) -> object:
         if other.shape != self.shape:
-            raise Exception('Matrix dimensions are mismatched ({} != {}). Please subtract (2) matrices of the same dimensions.'.format(self.shape, other.shape))
+            raise ValueError('Matrix dimensions are mismatched ({} != {}). Please subtract (2) matrices of the same dimensions.'.format(self.shape, other.shape))
 
         data, output = self.data, []
 
@@ -299,10 +299,10 @@ class Matrix:
     def __mul__(self, other) -> object:
         if isinstance(other, Matrix) == False:
             if isinstance(other, (int, float)) == False:
-                raise Exception('Expecting a matrix or a scalar of type int or float only.')
+                raise TypeError('Expecting a matrix or a scalar of type int or float only.')
         else:
             if self.size != other.size:
-                raise Exception('Matrix dimensions are mismatched for pointwise matrix multiplication ({} != {})'.format(self.shape, other.shape))
+                raise ValueError('Matrix dimensions are mismatched for pointwise matrix multiplication ({} != {})'.format(self.shape, other.shape))
 
         data, output = self.data, []
         
@@ -335,7 +335,7 @@ class Matrix:
 
     def __matmul__(self, other) -> object:
         if self.cols != other.rows:
-            raise Exception('Matrix dimensions are mismatched for matrix multiplication ({} @ {}: {} != {})'.format(self.shape, other.shape, self.shape[1], other.shape[0]))
+            raise ValueError('Matrix dimensions are mismatched for matrix multiplication ({} @ {}: {} != {})'.format(self.shape, other.shape, self.shape[1], other.shape[0]))
 
         data, output = self.data, []
 
@@ -363,4 +363,4 @@ class Matrix:
 
     def __repr__(self) -> str:
         matrix = str(self.data).replace('],', '],\n ')
-        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s), {} byte(s)".format(self.rows, self.cols, matrix, self.size, sys.getsizeof(self.data)+ sys.getsizeof(self)
+        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s), {} byte(s)".format(self.rows, self.cols, matrix, self.size, sys.getsizeof(self.data) + sys.getsizeof(self))
