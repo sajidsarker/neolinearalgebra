@@ -68,7 +68,7 @@ python3 -m pip uninstall neolinearalgebra
 The directory structure for this repository is detailed below:
 
 ```bash
-.
+/
 ├── neolinearalgebra
 │   ├── Matrix.py
 │   └── __init__.py
