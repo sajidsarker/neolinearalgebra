@@ -1,8 +1,18 @@
+import os
 from setuptools import setup
 
-setup(name='neolinearalgebra',
-      version='0.1',
-      description='Linear Algebra',
+def read(fname):
+      return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+setup(
+      name='neolinearalgebra',
+      version='0.1.1',
+      author='Sajid Sarker',
+      author_email='sajid.sarker@gmail.com',
+      description='NEO Linear Algebra package for Matrix Manipulation.',
+      license='MIT',
+      keywords='linear algebra matrix vector math',
       packages=['neolinearalgebra'],
+      long_description=read('README'),
       zip_safe=False
 )
