@@ -8,7 +8,7 @@ class Matrix:
         data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
         rows (int): Number of rows of the matrix.
         cols (int): Number of columns of the matrix.
-        shape (tuple): Tuple containing number of rows and columns of the matrix.
+        shape (tuple): Tuple containing number of rows and columns of the matrix. Must be a tuple of data type int only.
         size (int): Number of elements in the matrix.
     '''
     def __init__(self, data):
@@ -29,7 +29,7 @@ class Matrix:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
 
         Returns:
-            bool: Whether all integrity checks have successfully passed for the provided data to be valid for conversion into a matrix.
+            bool: Whether all integrity checks have successfully passed for the provided data to be valid for conversion into a matrix. True if successfully passed all checks, False otherwise.
         '''
 
         if self.check_if_list(data) == False:
