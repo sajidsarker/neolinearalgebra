@@ -1,7 +1,15 @@
 import math
 
 class Matrix:
-    
+    '''
+    Description
+    Attributes
+    data
+    rows
+    cols
+    shape
+    size
+    '''
     def __init__(self, data):
         if self.check_integrity(data) == False:
             raise Exception('Matrix is incorrectly configured with empty matrix or row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
@@ -19,30 +27,78 @@ class Matrix:
         Returns - bool
         '''
 
-        # Check if provided matrix is a list
-        if isinstance(data, list) == False:
+        if self.check_if_list(data) == False:
             return False
         
-        # Check if provided matrix is a list of lists
+        if self.check_if_list_of_lists(data) == False:
+            return False
+
+        if self.check_consistent_dimensions(data) == False:
+            return False
+
+        if self.check_if_empty(data) == True:
+            return False
+        
+        if self.check_numeric_dtype(data) == False:
+            return False
+
+        return True
+
+    
+    def check_if_list(self, data) -> bool:
+        '''
+        Checks if the provided matrix is a list.
+        '''
+        if isinstance(data, list) == False:
+            raise ValueError('Expecting matrix to be formatted as a list.')
+            return False
+        else:
+            return True
+
+
+    def check_if_list_of_lists(self, data) -> bool:
+        '''
+        Checks if the provided matrix is a list of lists
+        '''
         checks = [isinstance(x, list) == False for x in data]
         if True in checks:
+            raise ValueError('Expecting matrix to be formatted as a list of lists.')
             return False
-        
-        # Check if provided matrix has consistent dimensions
+        else:
+            return True
+
+
+    def check_consistent_dimensions(self, data) -> bool:
+        '''
+        Checks if the provided matrix has consistent dimensions.
+        '''
         ncols = [len(x) for x in data]
         if sum(ncols) / len(ncols) != ncols[0]:
+            raise IndexError('Expecting matrix to be provided with consistent dimensions.')
             return False
+        else:
+            return True
         
-        # Check if provided matrix has empty columns
+    def check_if_empty(self, data) -> bool:
+        '''
+        Checks if the provided matrix has empty columns.
+        '''
+        ncols = [len(x) for x in data]
         if ncols[0] == 0:
+            raise IndexError('Expecting matrix to be non-empty.')
+            return True
+        else:
             return False
-        
-        # Check if provided matrix contains values of type int or float only
+    
+    def check_numeric_dtype(self, data) -> bool:
+        '''
+        Checks if the provided matrix contains values of type int or float only.
+        '''
         for i in range(len(data)):
             checks = [isinstance(x, (int, float)) == False for x in data[i]]
             if sum(checks) > 0:
+                raise ValueError('Expecting matrix to contain values of type int or float only.')
                 return False
-
         return True
 
 
@@ -77,7 +133,7 @@ class Matrix:
 
 
     def magnitude(self) -> float:
-        if not (self.shape[0] == 1 or self.shape[1] == 1):
+        if not (self.rows == 1 or self.cols == 1):
             raise Exception('Matrix must be a row or column vector only.')
 
         output = []
@@ -102,7 +158,7 @@ class Matrix:
 
 
     def determinant(self) -> float:
-        if self.shape[0] != self.shape[1]:
+        if self.rows != self.cols:
             raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
         output, det = self.data, 0
@@ -126,7 +182,7 @@ class Matrix:
 
 
     def inverse(self) -> object:
-        if self.shape[0] != self.shape[1] and self.shape[0] < 2:
+        if self.rows != self.cols and self.rows < 2:
             raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix.')
 
         det = self.determinant()
@@ -140,26 +196,29 @@ class Matrix:
         # Calculate Determinants of Principal Minors
         adjugate_matrix = []
 
-        for i in range(self.shape[0]):
+        for i in range(self.rows):
             adjugate_matrix.append([])
-            for j in range(self.shape[1]):
-                principal_minor = self.data.copy()
-                print('{}: {}'.format((i, j), principal_minor))
+            for j in range(self.cols):
+                # Retrieve data non-destructively for generating Principal Minors
+                principal_minor = []
+                for row in range(self.rows):
+                    principal_minor.append(self.data[row].copy())
+
+                # Generate Principal Minors
                 for row in range(len(principal_minor)):
                     principal_minor[row].pop(j)
                 principal_minor.pop(i)
-                det_pm = Matrix(principal_minor).determinant()
-                print('{}: {}'.format(det_pm, principal_minor))
-                adjugate_matrix[i].append(det_pm)
 
-        print(adjugate_matrix)
+                # Populate Adjugate Matrix
+                det = Matrix(principal_minor).determinant()
+                adjugate_matrix[i].append(det)
 
         # Calculate the Product of Cofactors, Inverse of Determinant, and Adjugate Matrix
-        for i in range(self.shape[0]):
-            for j in range(self.shape[1]):
+        for i in range(self.rows):
+            for j in range(self.cols):
                 adjugate_matrix[i][j] *= (-1)**(i + j) * inv_det
 
-        return Matrix(adjugate_matrix)
+        return Matrix(adjugate_matrix).transpose()
 
 
     def __add__(self, other) -> object:
@@ -277,4 +336,4 @@ class Matrix:
 
     def __repr__(self) -> str:
         matrix = str(self.data).replace('],', '],\n ')
-        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {}".format(self.rows, self.cols, matrix, self.size)
+        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s)".format(self.rows, self.cols, matrix, self.size)
