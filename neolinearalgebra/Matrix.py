@@ -33,13 +33,13 @@ class Matrix:
         if self.check_if_list_of_lists(data) == False:
             return False
 
-        if self.check_consistent_dimensions(data) == False:
+        if self.check_if_consistent_dimensions(data) == False:
             return False
 
         if self.check_if_empty(data) == True:
             return False
         
-        if self.check_numeric_dtype(data) == False:
+        if self.check_if_numeric_dtype(data) == False:
             return False
 
         return True
@@ -60,6 +60,9 @@ class Matrix:
         '''
         Checks if the provided matrix is a list of lists
         '''
+        if len(data) == 0:
+            raise ValueError('Expecting matrix to be formatted as a list of lists.')
+            return False
         checks = [isinstance(x, list) == False for x in data]
         if True in checks:
             raise ValueError('Expecting matrix to be formatted as a list of lists.')
@@ -68,7 +71,7 @@ class Matrix:
             return True
 
 
-    def check_consistent_dimensions(self, data) -> bool:
+    def check_if_consistent_dimensions(self, data) -> bool:
         '''
         Checks if the provided matrix has consistent dimensions.
         '''
@@ -90,7 +93,7 @@ class Matrix:
         else:
             return False
     
-    def check_numeric_dtype(self, data) -> bool:
+    def check_if_numeric_dtype(self, data) -> bool:
         '''
         Checks if the provided matrix contains values of type int or float only.
         '''
@@ -100,6 +103,20 @@ class Matrix:
                 raise ValueError('Expecting matrix to contain values of type int or float only.')
                 return False
         return True
+    
+    
+    def check_if_square_matrix(self, data) -> bool:
+        '''
+        Checks if the provided matrix is a square matrix.
+        '''
+        return len(data) == len(data[0])
+    
+    
+    def check_if_vector(self, data) -> bool:
+        '''
+        Checks if the provided matrix is a row or column vector.
+        '''
+        return len(data) == 1 or len(data[0]) == 1
 
 
     def assign(self, row, col, value) -> None:
@@ -133,7 +150,7 @@ class Matrix:
 
 
     def magnitude(self) -> float:
-        if not (self.rows == 1 or self.cols == 1):
+        if self.check_if_vector(self.data) == False:
             raise Exception('Matrix must be a row or column vector only.')
 
         output = []
@@ -158,7 +175,7 @@ class Matrix:
 
 
     def determinant(self) -> float:
-        if self.rows != self.cols:
+        if self.check_if_square_matrix(self.data) == False:
             raise Exception('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
         output, det = self.data, 0
@@ -182,13 +199,13 @@ class Matrix:
 
 
     def inverse(self) -> object:
-        if self.rows != self.cols and self.rows < 2:
-            raise Exception('Matrix is not invertible as it is a non-square matrix. Please provide a square matrix.')
+        if self.check_if_square_matrix(self.data) == False and self.rows < 2:
+            raise Exception('Matrix is non-invertible as it is a non-square matrix. Please provide a square matrix of dimensions greater than or equal to (2, 2).')
 
         det = self.determinant()
 
         if det == 0:
-            raise Exception('Matrix is not invertible as the determinant is 0.')
+            raise Exception('Matrix is non-invertible as the determinant is 0.')
 
         # Calculate the Inverse of the Determinant
         inv_det = 1 / det
