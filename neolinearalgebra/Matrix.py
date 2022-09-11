@@ -188,22 +188,19 @@ class Matrix:
         if self.check_if_square_matrix(self.data) == False:
             raise ValueError('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
-        output, det = self.data, 0
-        indices = list(range(len(output)))
+        matrix, det = self.data, 0
+        indices = list(range(len(matrix)))
 
-        if len(output) == 1 and len(output[0]) == 1:
-            return output[0][0]
-
-        if len(output) == 2 and len(output[0]) == 2:
-            return output[0][0] * output[1][1] - output[1][0] * output[0][1]
+        if len(matrix) == 2 and len(matrix[0]) == 2:
+            return matrix[0][0] * matrix[1][1] - matrix[1][0] * matrix[0][1]
 
         for focus_column in indices:
-            principal_minor = output[1:]
+            principal_minor = matrix[1:].copy()
             for row in range(len(principal_minor)):
                 principal_minor[row] = principal_minor[row][0:focus_column] + principal_minor[row][focus_column+1:]
 
-        sub_det = Matrix(principal_minor).determinant()
-        det += (-1)**(focus_column % 2) * output[0][focus_column] * sub_det
+            sub_det = Matrix(principal_minor).determinant()
+            det += (-1)**(focus_column % 2) * matrix[0][focus_column] * sub_det
 
         return det
 
