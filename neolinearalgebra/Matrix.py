@@ -151,10 +151,8 @@ class Matrix:
 
 
     def trace(self) -> float:
-        output, data = 0, self.diagonal().data
-
-        for row in range(len(data)):
-            output += sum(data[row])
+        data = self.diagonal().data.copy()
+        output = sum([sum(x) for x in data])
 
         return output
 
@@ -188,7 +186,7 @@ class Matrix:
         if self.check_if_square_matrix(self.data) == False:
             raise ValueError('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
-        matrix, det = self.data, 0
+        matrix, det = self.data.copy(), 0
         indices = list(range(len(matrix)))
 
         if len(matrix) == 2 and len(matrix[0]) == 2:
@@ -196,6 +194,7 @@ class Matrix:
 
         for focus_column in indices:
             principal_minor = matrix[1:].copy()
+            
             for row in range(len(principal_minor)):
                 principal_minor[row] = principal_minor[row][0:focus_column] + principal_minor[row][focus_column+1:]
 
