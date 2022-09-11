@@ -14,5 +14,12 @@ setup(
       keywords='linear algebra matrix vector math',
       packages=['neolinearalgebra'],
       long_description=read('README'),
+      classifiers=[
+            'Development Status :: 3 - Alpha',
+            'Topic :: Utilities',
+            'License :: OSI Approved :: MIT License',
+            'Natural Language :: English',
+            'Programming Language :: Python :: 3.10'
+      ],
       zip_safe=False
 )
