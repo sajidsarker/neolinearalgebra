@@ -49,7 +49,22 @@ python3 -m pip install --upgrade neolinearalgebra
 
 ## 3. Files
 
-[...]
+The directory structure for this repository is detailed below:
+
+```bash
+.
+├── neolinearalgebra
+│   ├── Matrix.py
+│   └── __init__.py
+├── .gitignore
+├── LICENSE.txt
+├── README.md
+├── setup.cfg
+├── setup.py
+└── test.py
+```
+
+Setup and configuration files for package installation is in the root **.** directory. The contents of the package is stored in **./neolinearalgebra/**. The singular class is *Matrix*.
 
 ## 4. Unit Testing
 
