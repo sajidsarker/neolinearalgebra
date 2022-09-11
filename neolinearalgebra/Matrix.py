@@ -2,14 +2,14 @@ import sys
 import math
 
 class Matrix:
-    '''
-    Description
-    Attributes
-    data
-    rows
-    cols
-    shape
-    size
+    '''Matrix class containing attributes and methods designed for Matrix operations in Linear Algebra.
+
+    Attributes:
+        data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+        rows (int): Number of rows of the matrix.
+        cols (int): Number of columns of the matrix.
+        shape (tuple): Tuple containing number of rows and columns of the matrix.
+        size (int): Number of elements in the matrix.
     '''
     def __init__(self, data):
         if self.check_integrity(data) == False:
@@ -23,9 +23,13 @@ class Matrix:
 
 
     def check_integrity(self, data) -> bool:
-        '''
-        Args - data (list): ...
-        Returns - bool
+        '''Checks provided values used to construct the matrix by conducting a series of integrity checks.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether all integrity checks have successfully passed for the provided data to be valid for conversion into a matrix.
         '''
 
         if self.check_if_list(data) == False:
@@ -47,8 +51,13 @@ class Matrix:
 
     
     def check_if_list(self, data) -> bool:
-        '''
-        Checks if the provided matrix is a list.
+        '''Checks if the provided matrix is a list.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether the provided data is a valid list for conversion into a matrix.
         '''
         if isinstance(data, list) == False:
             raise TypeError('Expecting matrix to be formatted as a list.')
@@ -58,8 +67,13 @@ class Matrix:
 
 
     def check_if_list_of_lists(self, data) -> bool:
-        '''
-        Checks if the provided matrix is a list of lists.
+        '''Checks if the provided matrix is a list of lists.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether the provided data is a valid list of lists for conversion into a matrix.
         '''
         if len(data) == 0:
             raise TypeError('Expecting matrix to be formatted as a list of lists.')
@@ -73,8 +87,13 @@ class Matrix:
 
 
     def check_if_consistent_dimensions(self, data) -> bool:
-        '''
-        Checks if the provided matrix has consistent dimensions.
+        '''Checks if the provided matrix has consistent dimensions.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether the provided data has consistent dimensions in terms of rows and columns for conversion into a matrix.
         '''
         ncols = [len(x) for x in data]
         if sum(ncols) / len(ncols) != ncols[0]:
@@ -84,8 +103,13 @@ class Matrix:
             return True
         
     def check_if_empty(self, data) -> bool:
-        '''
-        Checks if the provided matrix has empty columns.
+        '''Checks if the provided matrix has empty columns.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether the provided data is an empty list or list of lists.
         '''
         ncols = [len(x) for x in data]
         if ncols[0] == 0:
@@ -95,8 +119,13 @@ class Matrix:
             return False
     
     def check_if_numeric_dtype(self, data) -> bool:
-        '''
-        Checks if the provided matrix contains values of type int or float only.
+        '''Checks if the provided matrix contains values of type int or float only.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether the provided data is int or float only for conversion into a matrix.
         '''
         for i in range(len(data)):
             checks = [isinstance(x, (int, float)) == False for x in data[i]]
@@ -107,20 +136,42 @@ class Matrix:
     
     
     def check_if_square_matrix(self, data) -> bool:
-        '''
-        Checks if the provided matrix is a square matrix.
+        '''Checks if the provided matrix is a square matrix.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether the provided data has consistent square dimensions with rows and columns being equal for conversion into a matrix.
         '''
         return len(data) == len(data[0])
     
     
     def check_if_vector(self, data) -> bool:
-        '''
-        Checks if the provided matrix is a row or column vector.
+        '''Checks if the provided matrix is a row or column vector.
+
+        Args:
+            data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
+        Returns:
+            bool: Whether the provided data has dimensions in terms of a row vector or a column vector for conversion into a matrix.
         '''
         return len(data) == 1 or len(data[0]) == 1
 
 
     def assign(self, row, col, value) -> None:
+        '''Assigns a value to the specified row and column in the matrix.
+        
+        Args:
+            row (int): Row index
+            col (int): Column index
+            value (int, float): Value to be assigned
+        
+        Returns:
+            None
+        
+        Raises:
+        '''
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
 
@@ -128,6 +179,18 @@ class Matrix:
 
 
     def fill(self, rows, cols, value) -> None:
+        '''Fills specified row range and column range with a value in the matrix.
+        
+        Args:
+            rows (tuple): Tuple of row range (start, end) as dtype int
+            cols (tuple): Tuple of column range (start, end) as dtype int
+            value (int, float): Value to be assigned
+        
+        Returns:
+            None
+        
+        Raises:
+        '''
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
 
@@ -137,10 +200,29 @@ class Matrix:
 
 
     def retrieve(self, row, col) -> (int, float):
+        '''Retrieves the value of the specified row and column in the matrix.
+        
+        Args:
+            row (int): Row index
+            col (int): Column index
+        
+        Returns:
+            None
+        
+        Raises:
+        '''
         return self.data[row][col]
 
 
     def diagonal(self) -> object:
+        '''Gets the diagonal of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            object: Matrix object containing the diagonal of the Matrix.
+        '''
         output = []
 
         for i in range(self.rows):
@@ -151,6 +233,14 @@ class Matrix:
 
 
     def trace(self) -> float:
+        '''Gets the trace of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            float: Trace of the Matrix.
+        '''
         data = self.diagonal().data.copy()
         output = sum([sum(x) for x in data])
 
@@ -158,6 +248,16 @@ class Matrix:
 
 
     def magnitude(self) -> float:
+        '''Gets the magnitude of the row vector or column vector.
+        
+        Args:
+            None
+        
+        Returns:
+            float: Magnitude of the row vector or column vector.
+        
+        Raises:
+        '''
         if self.check_if_vector(self.data) == False:
             raise Exception('Matrix must be a row or column vector only.')
 
@@ -171,6 +271,16 @@ class Matrix:
 
 
     def transpose(self) -> object:
+        '''Gets the transpose of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            object: Matrix object containing the transpose of the matrix.
+        
+        Raises:
+        '''
         output, row = [], []
 
         for j in range(self.cols):
@@ -183,6 +293,16 @@ class Matrix:
 
 
     def determinant(self) -> float:
+        '''Gets the determinant of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            float: Determinant of the matrix.
+        
+        Raises:
+        '''
         if self.check_if_square_matrix(self.data) == False:
             raise ValueError('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
 
@@ -205,6 +325,16 @@ class Matrix:
 
 
     def inverse(self) -> object:
+        '''Gets the inverse of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            object: Matrix object containing the inverse of the matrix.
+        
+        Raises:
+        '''
         if self.check_if_square_matrix(self.data) == False and self.rows < 2:
             raise ValueError('Matrix is non-invertible as it is a non-square matrix. Please provide a square matrix of dimensions greater than or equal to (2, 2).')
 
@@ -245,6 +375,16 @@ class Matrix:
 
 
     def __add__(self, other) -> object:
+        '''Gets the sum of the matrices.
+        
+        Args:
+            other (object): Matrix object to be summed
+        
+        Returns:
+            object: Matrix object containing the sum of the matrices.
+        
+        Raises:
+        '''
         if other.shape != self.shape:
             raise ValueError('Matrix dimensions are mismatched ({} != {}). Please add (2) matrices of the same dimensions.'.format(self.shape, other.shape))
 
@@ -261,14 +401,44 @@ class Matrix:
 
 
     def __ladd__(self, other) -> object:
+        '''Gets the sum of the matrices.
+        
+        Args:
+            other (object): Matrix object to be summed
+        
+        Returns:
+            object: Matrix object containing the sum of the matrices.
+        
+        Raises:
+        '''
         return self.__add__(other)
 
 
     def __radd__(self, other) -> object:
+        '''Gets the sum of the matrices.
+        
+        Args:
+            other (object): Matrix object to be summed
+        
+        Returns:
+            object: Matrix object containing the sum of the matrices.
+        
+        Raises:
+        '''
         return self.__add__(other)
 
 
     def __sub__(self, other) -> object:
+        '''Gets the subtraction of the matrices.
+        
+        Args:
+            other (object): Matrix object to be subtracted
+        
+        Returns:
+            object: Matrix object containing the subtraction of the matrices.
+        
+        Raises:
+        '''
         if other.shape != self.shape:
             raise ValueError('Matrix dimensions are mismatched ({} != {}). Please subtract (2) matrices of the same dimensions.'.format(self.shape, other.shape))
 
@@ -285,14 +455,45 @@ class Matrix:
 
 
     def __lsub__(self, other) -> object:
+        '''Gets the subtraction of the matrices.
+        
+        Args:
+            other (object): Matrix object to be subtracted
+        
+        Returns:
+            object: Matrix object containing the subtraction of the matrices.
+        
+        Raises:
+        '''
         return self.__sub__(other)
 
 
     def __rsub__(self, other) -> object:
+        '''Gets the subtraction of the matrices.
+        
+        Args:
+            other (object): Matrix object to be subtracted
+        
+        Returns:
+            object: Matrix object containing the subtraction of the matrices.
+        
+        Raises:
+        '''
         return self.__sub__(other)
 
 
     def __mul__(self, other) -> object:
+        '''Gets the scalar or pointwise product of the matrices.
+        
+        Args:
+            other (float): Scalar for pointwise multiplication
+            other (object): Matrix object for pointwise multiplication
+        
+        Returns:
+            object: Matrix object containing the scalar or pointwise product of the matrices.
+        
+        Raises:
+        '''
         if isinstance(other, Matrix) == False:
             if isinstance(other, (int, float)) == False:
                 raise TypeError('Expecting a matrix or a scalar of type int or float only.')
@@ -322,14 +523,46 @@ class Matrix:
 
 
     def __lmul__(self, other) -> object:
+        '''Gets the scalar or pointwise product of the matrices.
+        
+        Args:
+            other (float): Scalar for pointwise multiplication
+            other (object): Matrix object for pointwise multiplication
+        
+        Returns:
+            object: Matrix object containing the scalar or pointwise product of the matrices.
+        
+        Raises:
+        '''
         return self.__mul__(other)
 
 
     def __rmul__(self, other) -> object:
+        '''Gets the scalar or pointwise product of the matrices.
+        
+        Args:
+            other (float): Scalar for pointwise multiplication
+            other (object): Matrix object for pointwise multiplication
+        
+        Returns:
+            object: Matrix object containing the scalar or pointwise product of the matrices.
+        
+        Raises:
+        '''
         return self.__mul__(other)
 
 
     def __matmul__(self, other) -> object:
+        '''Gets the product of the matrices.
+        
+        Args:
+            other (object): Matrix object for matrix multiplication
+        
+        Returns:
+            object: Matrix object containing the product of the matrices.
+        
+        Raises:
+        '''
         if self.cols != other.rows:
             raise ValueError('Matrix dimensions are mismatched for matrix multiplication ({} @ {}: {} != {})'.format(self.shape, other.shape, self.shape[1], other.shape[0]))
 
@@ -350,13 +583,41 @@ class Matrix:
 
 
     def __lmatmul__(self, other) -> object:
+        '''Gets the product of the matrices.
+        
+        Args:
+            other (object): Matrix object for matrix multiplication
+        
+        Returns:
+            object: Matrix object containing the product of the matrices.
+        
+        Raises:
+        '''
         return __matmul__(self, other)
 
 
     def __rmatmul__(self, other) -> object:
+        '''Gets the product of the matrices.
+        
+        Args:
+            other (object): Matrix object for matrix multiplication
+        
+        Returns:
+            object: Matrix object containing the product of the matrices.
+        
+        Raises:
+        '''
         return __matmul__(self, other)
 
 
     def __repr__(self) -> str:
+        '''Gets the representation of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            object: Matrix object.
+        '''
         matrix = str(self.data).replace('],', '],\n ')
         return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s), {} byte(s)".format(self.rows, self.cols, matrix, self.size, sys.getsizeof(self.data) + sys.getsizeof(self))
