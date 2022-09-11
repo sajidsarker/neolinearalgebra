@@ -1,3 +1,4 @@
+import sys
 import math
 
 class Matrix:
@@ -362,4 +363,4 @@ class Matrix:
 
     def __repr__(self) -> str:
         matrix = str(self.data).replace('],', '],\n ')
-        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s), {} byte(s)".format(self.rows, self.cols, matrix, self.size, self.__sizeof__())
+        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s), {} byte(s)".format(self.rows, self.cols, matrix, self.size, sys.getsizeof(self))
