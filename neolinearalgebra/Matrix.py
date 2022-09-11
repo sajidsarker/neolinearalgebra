@@ -130,9 +130,9 @@ class Matrix:
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
 
-        for i in range(rows[0], rows[1], 1):
-            for j in range(cols[0], cols[1], 1):
-                self.data[i][j] = value
+        for row in range(rows[0], rows[1]):
+            for col in range(cols[0], cols[1]):
+                self.data[row][col] = value
 
 
     def retrieve(self, row, col) -> (int, float):
@@ -164,9 +164,9 @@ class Matrix:
 
         output = []
 
-        for i in range(self.rows):
-            for j in range(self.cols):
-                output.append(self.data[i][j]**2)
+        for row in range(self.rows):
+            for col in range(self.cols):
+                output.append(self.data[row][col]**2)
 
         return math.sqrt(sum(output))
 
@@ -174,9 +174,9 @@ class Matrix:
     def transpose(self) -> object:
         output, row = [], []
 
-        for j in range(self.cols):
-            for i in range(self.rows):
-                row.append(self.data[i][j])
+        for col in range(self.cols):
+            for row in range(self.rows):
+                row.append(self.data[row][col])
             output.append(row)
             row = []
 
@@ -240,9 +240,9 @@ class Matrix:
                 adjugate_matrix[i].append(det)
 
         # Calculate the Product of Cofactors, Inverse of Determinant, and Adjugate Matrix
-        for i in range(self.rows):
-            for j in range(self.cols):
-                adjugate_matrix[i][j] *= (-1)**(i + j) * inv_det
+        for row in range(self.rows):
+            for col in range(self.cols):
+                adjugate_matrix[row][col] *= (-1)**(i + j) * inv_det
 
         return Matrix(adjugate_matrix).transpose()
 
@@ -253,10 +253,10 @@ class Matrix:
 
         data, output = self.data, []
 
-        for i in range(self.rows):
+        for row in range(self.rows):
             output.append([])
-            for j in range(self.cols):
-                output[i].append(self.data[i][j] + other.data[i][j])
+            for col in range(self.cols):
+                output[row].append(self.data[row][col] + other.data[row][col])
 
         self.data = data
 
@@ -277,10 +277,10 @@ class Matrix:
 
         data, output = self.data, []
 
-        for i in range(self.rows):
+        for row in range(self.rows):
             output.append([])
-            for j in range(self.cols):
-                output[i].append(self.data[i][j] - other.data[i][j])
+            for col in range(self.cols):
+                output[row].append(self.data[row][col] - other.data[row][col])
 
         self.data = data
 
@@ -307,17 +307,17 @@ class Matrix:
         
         # Scalar multiplication
         if isinstance(other, (int, float)):
-            for i in range(self.rows):
+            for row in range(self.rows):
                 output.append([])
-                for j in range(self.cols):
-                    output[i].append(self.data[i][j] * other)
+                for col in range(self.cols):
+                    output[row].append(self.data[row][col] * other)
 
         # Matrix multiplication (pointwise)
         if isinstance(other, Matrix):
-            for i in range(self.rows):
+            for row in range(self.rows):
                 output.append([])
-                for j in range(self.cols):
-                    output[i].append(self.data[i][j] * other.data[i][j])
+                for col in range(self.cols):
+                    output[row].append(self.data[row][col] * other.data[row][col])
 
         self.data = data
 
