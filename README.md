@@ -10,7 +10,7 @@
 
 **NEO Linear Algebra** is a lightweight Python package designed for Matrix operations in Linear Algebra.
 
-[...]
+I was inspired to program this from scratch as part of a light review of the absolute fundamentals of Linear Algebra and my own first attempt at the development of a Python package for open source. I was also inspired by rewatching The Matrix quadrilogy.
 
 ## 2. Installation
 
