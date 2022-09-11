@@ -12,7 +12,7 @@ class Matrix:
     '''
     def __init__(self, data):
         if self.check_integrity(data) == False:
-            raise Exception('Matrix is incorrectly configured with empty matrix or row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
+            raise ValueError('Matrix is incorrectly configured with empty matrix or row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
 
         self.data = data
         self.rows = len(data)
@@ -50,7 +50,7 @@ class Matrix:
         Checks if the provided matrix is a list.
         '''
         if isinstance(data, list) == False:
-            raise ValueError('Expecting matrix to be formatted as a list.')
+            raise TypeError('Expecting matrix to be formatted as a list.')
             return False
         else:
             return True
@@ -61,11 +61,11 @@ class Matrix:
         Checks if the provided matrix is a list of lists
         '''
         if len(data) == 0:
-            raise ValueError('Expecting matrix to be formatted as a list of lists.')
+            raise TypeError('Expecting matrix to be formatted as a list of lists.')
             return False
         checks = [isinstance(x, list) == False for x in data]
         if True in checks:
-            raise ValueError('Expecting matrix to be formatted as a list of lists.')
+            raise TypeError('Expecting matrix to be formatted as a list of lists.')
             return False
         else:
             return True
