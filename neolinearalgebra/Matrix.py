@@ -149,6 +149,15 @@ class Matrix:
         return Matrix(output)
 
 
+    def trace(self) -> float:
+        output, data = 0, self.diagonal().data
+
+        for row in range(len(data)):
+            output += sum(data[row])
+
+        return output
+
+
     def magnitude(self) -> float:
         if self.check_if_vector(self.data) == False:
             raise Exception('Matrix must be a row or column vector only.')
