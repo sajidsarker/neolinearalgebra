@@ -338,12 +338,12 @@ class Matrix:
 
         data, output = self.data, []
 
-        n, m = self.shape[1], self.shape[1]
+        n, m, c = self.rows, self.cols, other.cols
         for i in range(n):
             output.append([])
-            for j in range(m):
+            for j in range(c):
                 value = 0
-                for k in range(n):
+                for k in range(m):
                     value += self.data[i][k] * other.data[k][j]
                 output[i].append(value)
 
