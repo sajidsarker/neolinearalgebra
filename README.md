@@ -95,7 +95,7 @@ Please only perform unit testing after you have upgraded your version of the pac
 To perform unit testing, use the following bash code in a UNIX-based environment:
 
 ```bash
-cd ./neolinearalgebra/
+cd ./neolinearalgebra/tests/
 python3 -m pip install --upgrade .
 python3 -v test.py
 ```
@@ -103,7 +103,7 @@ python3 -v test.py
 *or*
 
 ```bash
-cd ./neolinearalgebra/
+cd ./neolinearalgebra/tests/
 python3 -m pip install --upgrade .
 chmod +x test.py
 ./test.py -v
