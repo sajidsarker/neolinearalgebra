@@ -16,20 +16,35 @@ This project consists of a directory for a singular *Matrix* class file.
 
 You may install this package locally on your machine or download through the Python pip package manager.
 
-To download this repository and install the package locally on your machine, use the following bash code in a UNIX-based environment:
+To download this repository and **install** the package locally on your machine, use the following bash code in a UNIX-based environment:
 
 ```bash
 git clone https://github.com/sajidsarker/neolinearalgebra.git
-cd neolinearalgebra/
+cd ./neolinearalgebra/
 python3 -m pip install --upgrade pip
-pip install .
+python3 -m pip install .
 ```
 
-To install this package through the Python pip package manager, use the following bash code in a UNIX-based environment:
+To download this repository and **upgrade** the package locally on your machine, use the following bash code in a UNIX-based environment:
+```bash
+git clone https://github.com/sajidsarker/neolinearalgebra.git
+cd ./neolinearalgebra/
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade .
+```
+
+To **install** this package through the Python pip package manager, use the following bash code in a UNIX-based environment:
 
 ```bash
 python3 -m pip install --upgrade pip
 python3 -m pip install neolinearalgebra
+```
+
+To **upgrade** this package through the Python pip package manager, use the following bash code in a UNIX-based environment:
+
+```bash
+python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade neolinearalgebra
 ```
 
 ## 3. Files
