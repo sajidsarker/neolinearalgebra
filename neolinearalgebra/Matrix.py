@@ -174,9 +174,9 @@ class Matrix:
     def transpose(self) -> object:
         output, row = [], []
 
-        for col in range(self.cols):
-            for row in range(self.rows):
-                row.append(self.data[row][col])
+        for j in range(self.cols):
+            for i in range(self.rows):
+                row.append(self.data[i][j])
             output.append(row)
             row = []
 
@@ -362,4 +362,4 @@ class Matrix:
 
     def __repr__(self) -> str:
         matrix = str(self.data).replace('],', '],\n ')
-        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s)".format(self.rows, self.cols, matrix, self.size)
+        return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s), {} byte(s)".format(self.rows, self.cols, matrix, self.size, self.__sizeof__())
