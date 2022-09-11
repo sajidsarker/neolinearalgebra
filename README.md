@@ -51,11 +51,34 @@ python3 -m pip install --upgrade neolinearalgebra
 
 [...]
 
-## 4. Usage
+## 4. Unit Testing
+
+The aforementioned file *test.py* for performing unit testing is included in the main directory of the repository. You may append the program with additional functions for unit testing *Matrix.py*.
+
+Please perform unit testing after you have upgraded your version of the package locally during open source development.
+
+To perform unit testing, use the following bash code in a UNIX-based environment:
+
+```bash
+cd ./neolinearalgebra/
+python3 -m pip install --upgrade .
+python3 -v test.py
+```
+
+*or*
+
+```bash
+cd ./neolinearalgebra/
+python3 -m pip install --upgrade .
+chmod +x test.py
+./test.py -v
+```
+
+## 5. Usage
 
 [...]
 
-## 5. Documentation
+## 6. Documentation
 
 Docstrings highlight the behaviour of class attributes and class methods within files in this repository. For more detailed information, you may consult my [blog post](https://sajidsarker.github.io/) for a reproduction of documentation on package functionality.
 
