@@ -72,9 +72,9 @@ The directory structure for this repository is detailed below:
 ├── Documentation/
 │   └── Documentation.html
 ├── src/
-│   └──neolinearalgebra/
-│      ├── Matrix.py
-│      └── __init__.py
+│   └── neolinearalgebra/
+│       ├── Matrix.py
+│       └── __init__.py
 ├── .gitignore
 ├── LICENSE.txt
 ├── README.md
@@ -90,7 +90,7 @@ Setup and configuration files for package installation is in the root **.** dire
 
 The aforementioned file *test.py* for performing unit testing is included in the main directory of the repository. You may append the program with additional functions for unit testing *Matrix.py*.
 
-Please perform unit testing after you have upgraded your version of the package locally during open source development.
+Please only perform unit testing after you have upgraded your version of the package locally during open source development.
 
 To perform unit testing, use the following bash code in a UNIX-based environment:
 
