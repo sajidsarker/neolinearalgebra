@@ -72,7 +72,7 @@ The directory structure for this repository is detailed below:
 ├── Documentation/
 │   └── Documentation.html
 ├── src/
-│   └──neolinearalgebra
+│   └──neolinearalgebra/
 │      ├── Matrix.py
 │      └── __init__.py
 ├── .gitignore
