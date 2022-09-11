@@ -169,8 +169,6 @@ class Matrix:
         
         Returns:
             None
-        
-        Raises:
         '''
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
@@ -188,8 +186,6 @@ class Matrix:
         
         Returns:
             None
-        
-        Raises:
         '''
         if isinstance(value, (int, float)) == False:
             raise Exception('Value must be of type int or float only.')
@@ -199,7 +195,7 @@ class Matrix:
                 self.data[row][col] = value
 
 
-    def retrieve(self, row, col) -> (int, float):
+    def retrieve(self, row, col) -> float:
         '''Retrieves the value of the specified row and column in the matrix.
         
         Args:
@@ -207,9 +203,7 @@ class Matrix:
             col (int): Column index
         
         Returns:
-            None
-        
-        Raises:
+            float: Value specified with row and column in the matrix.
         '''
         return self.data[row][col]
 
@@ -255,8 +249,6 @@ class Matrix:
         
         Returns:
             float: Magnitude of the row vector or column vector.
-        
-        Raises:
         '''
         if self.check_if_vector(self.data) == False:
             raise Exception('Matrix must be a row or column vector only.')
@@ -278,8 +270,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the transpose of the matrix.
-        
-        Raises:
         '''
         output, row = [], []
 
@@ -300,8 +290,6 @@ class Matrix:
         
         Returns:
             float: Determinant of the matrix.
-        
-        Raises:
         '''
         if self.check_if_square_matrix(self.data) == False:
             raise ValueError('Matrix determinant cannot be derived as it is a non-square matrix. Please provide a square matrix.')
@@ -332,8 +320,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the inverse of the matrix.
-        
-        Raises:
         '''
         if self.check_if_square_matrix(self.data) == False and self.rows < 2:
             raise ValueError('Matrix is non-invertible as it is a non-square matrix. Please provide a square matrix of dimensions greater than or equal to (2, 2).')
@@ -382,8 +368,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the sum of the matrices.
-        
-        Raises:
         '''
         if other.shape != self.shape:
             raise ValueError('Matrix dimensions are mismatched ({} != {}). Please add (2) matrices of the same dimensions.'.format(self.shape, other.shape))
@@ -408,8 +392,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the sum of the matrices.
-        
-        Raises:
         '''
         return self.__add__(other)
 
@@ -436,8 +418,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the subtraction of the matrices.
-        
-        Raises:
         '''
         if other.shape != self.shape:
             raise ValueError('Matrix dimensions are mismatched ({} != {}). Please subtract (2) matrices of the same dimensions.'.format(self.shape, other.shape))
@@ -462,8 +442,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the subtraction of the matrices.
-        
-        Raises:
         '''
         return self.__sub__(other)
 
@@ -476,8 +454,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the subtraction of the matrices.
-        
-        Raises:
         '''
         return self.__sub__(other)
 
@@ -491,8 +467,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the scalar or pointwise product of the matrices.
-        
-        Raises:
         '''
         if isinstance(other, Matrix) == False:
             if isinstance(other, (int, float)) == False:
@@ -531,8 +505,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the scalar or pointwise product of the matrices.
-        
-        Raises:
         '''
         return self.__mul__(other)
 
@@ -546,8 +518,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the scalar or pointwise product of the matrices.
-        
-        Raises:
         '''
         return self.__mul__(other)
 
@@ -560,8 +530,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the product of the matrices.
-        
-        Raises:
         '''
         if self.cols != other.rows:
             raise ValueError('Matrix dimensions are mismatched for matrix multiplication ({} @ {}: {} != {})'.format(self.shape, other.shape, self.shape[1], other.shape[0]))
@@ -590,8 +558,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the product of the matrices.
-        
-        Raises:
         '''
         return __matmul__(self, other)
 
@@ -604,8 +570,6 @@ class Matrix:
         
         Returns:
             object: Matrix object containing the product of the matrices.
-        
-        Raises:
         '''
         return __matmul__(self, other)
 
@@ -617,7 +581,7 @@ class Matrix:
             None
         
         Returns:
-            object: Matrix object.
+            str: Matrix representation.
         '''
         matrix = str(self.data).replace('],', '],\n ')
         return "<class: 'Matrix'>\nDimensions: {} row(s) x {} column(s)\n {}\nSize: {} element(s), {} byte(s)".format(self.rows, self.cols, matrix, self.size, sys.getsizeof(self.data) + sys.getsizeof(self))
