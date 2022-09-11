@@ -105,7 +105,7 @@ chmod +x test.py
 
 ## 5. Usage
 
-To import Neo Linear Algebra into your Python project, use the following *import* declaration at the start of your program code:
+To import **NEO Linear Algebra** into your Python project, use the following *import* declaration at the start of your program code:
 
 ```python
 from neolinearalgebra import Matrix
