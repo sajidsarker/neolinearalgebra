@@ -92,7 +92,7 @@ The directory structure for this repository is detailed below:
 ├── README.md
 ├── pyproject.toml
 ├── setup.cfg
-├── setup.py
+└── setup.py
 ```
 
 Setup and configuration files for package installation is in the root **.** directory. The contents of the package is stored in **./neolinearalgebra/**. The singular class is *Matrix*.
