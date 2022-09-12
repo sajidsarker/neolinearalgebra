@@ -9,13 +9,13 @@
 **Article:** [NEO Linear Algebra for Python](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html)
 
 ## Table of Contents
-1. [Motivation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#1-motivation)
-2. [Installation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#2-installation)
-3. [Build](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#3-build)
-4. [Files](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#4-files)
-5. [Unit Testing](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#5-unit-testing)
-6. [Usage](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#6-usage)
-7. [Documentation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#7-documentation)
+1. [Motivation](https://github.com/sajidsarker/neolinearalgebra#1-motivation)
+2. [Installation](https://github.com/sajidsarker/neolinearalgebra#2-installation)
+3. [Build](https://github.com/sajidsarker/neolinearalgebra#3-build)
+4. [Files](https://github.com/sajidsarker/neolinearalgebra#4-files)
+5. [Unit Testing](https://github.com/sajidsarker/neolinearalgebra#5-unit-testing)
+6. [Usage](https://github.com/sajidsarker/neolinearalgebra#6-usage)
+7. [Documentation](https://github.com/sajidsarker/neolinearalgebra#7-documentation)
 
 ## 1. Motivation
 
