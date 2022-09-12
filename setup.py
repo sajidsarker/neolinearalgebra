@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
       name='neolinearalgebra',
-      version='0.1.1',
+      version='0.1.5',
       author='Sajid Sarker',
       author_email='sajid.sarker@gmail.com',
       description='NEO Linear Algebra package for Matrix Manipulation.',
@@ -19,7 +19,7 @@ setup(
             'Topic :: Utilities',
             'License :: OSI Approved :: MIT License',
             'Natural Language :: English',
-            'Programming Language :: Python :: 3.10'
+            'Programming Language :: Python :: 3'
       ],
       zip_safe=False
 )
