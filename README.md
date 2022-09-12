@@ -6,6 +6,14 @@
 
 **Version:** 0.1.5
 
+## Table of Contents
+1. [Motivation]()
+2. [Installation]()
+3. [Files]()
+4. [Unit Testing]()
+5. [Usage]()
+6. [Usage]()
+
 ## 1. Motivation
 
 **NEO Linear Algebra** is a lightweight Python package designed for Matrix operations in Linear Algebra.
