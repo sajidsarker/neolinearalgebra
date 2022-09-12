@@ -11,10 +11,11 @@
 ## Table of Contents
 1. [Motivation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#1-motivation)
 2. [Installation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#2-installation)
-3. [Files](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#3-files)
-4. [Unit Testing](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#4-unit-testing)
-5. [Usage](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#5-usage)
-6. [Documentation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#6-documentation)
+3. [Build](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#3-build)
+4. [Files](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#4-files)
+5. [Unit Testing](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#5-unit-testing)
+6. [Usage](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#6-usage)
+7. [Documentation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#7-documentation)
 
 ## 1. Motivation
 
@@ -71,7 +72,16 @@ To **uninstall** this package through the Python pip package manager, use the fo
 python3 -m pip uninstall neolinearalgebra
 ```
 
-## 3. Files
+## 3. Build
+
+To download this repository and **build** the package locally on your machine, use the following bash code in a UNIX-based environment:
+```bash
+git clone https://github.com/sajidsarker/neolinearalgebra.git
+cd ./neolinearalgebra/
+python3 -m pip build . --wheel
+```
+
+## 4. Files
 
 The directory structure for this repository is detailed below:
 
@@ -95,7 +105,7 @@ The directory structure for this repository is detailed below:
 
 Setup and configuration files for package installation is in the root **.** directory. The contents of the package is stored in **./neolinearalgebra/**. The singular class is *Matrix*.
 
-## 4. Unit Testing
+## 5. Unit Testing
 
 The aforementioned file *test.py* for performing unit testing is included in the main directory of the repository. You may append the program with additional functions for unit testing *Matrix.py*.
 
@@ -116,7 +126,7 @@ chmod +x test.py
 ./test.py -v
 ```
 
-## 5. Usage
+## 6. Usage
 
 To import **NEO Linear Algebra** into your Python project, use the following *import* declaration at the start of your program code:
 
@@ -124,7 +134,7 @@ To import **NEO Linear Algebra** into your Python project, use the following *im
 from neolinearalgebra import Matrix
 ```
 
-## 6. Documentation
+## 7. Documentation
 
 Docstrings highlight the behaviour of class attributes and class methods within files in this repository. A comprehensive reference on class attributes and methods are present in the **./Documentation** folder.
 
