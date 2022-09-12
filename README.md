@@ -47,7 +47,6 @@ python3 -m pip install --upgrade .
 
 To **uninstall** the package locally on your machine, navigate to the repository directory in your terminal use the following bash code in a UNIX-based environment:
 ```bash
-python3 -m pip install --upgrade pip
 python3 -m pip uninstall .
 cd ../ && rm -rf ./neolinearalgebra
 ```
@@ -69,7 +68,6 @@ python3 -m pip install --upgrade neolinearalgebra
 To **uninstall** this package through the Python pip package manager, use the following bash code in a UNIX-based environment:
 
 ```bash
-python3 -m pip install --upgrade pip
 python3 -m pip uninstall neolinearalgebra
 ```
 
