@@ -6,13 +6,15 @@
 
 **Version:** 0.1.5
 
+**Article:** [NEO Linear Algebra for Python](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html)
+
 ## Table of Contents
-1. [Motivation]()
-2. [Installation]()
-3. [Files]()
-4. [Unit Testing]()
-5. [Usage]()
-6. [Usage]()
+1. [Motivation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#1-motivation)
+2. [Installation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#2-installation)
+3. [Files](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#3-files)
+4. [Unit Testing](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#4-unit-testing)
+5. [Usage](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#5-usage)
+6. [Documentation](https://github.com/sajidsarker/neolinearalgebra/blob/main/README.md#6-documentation)
 
 ## 1. Motivation
 
