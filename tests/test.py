@@ -1,6 +1,11 @@
 import unittest
 
-from neolinearalgebra import Matrix
+import sys
+sys.path.insert(1, './src/neolinearalgebra/')
+
+import file
+
+# from neolinearalgebra import Matrix
 
 '''
 A (check: list)
@@ -84,10 +89,12 @@ A.transpose().inverse()=A.inverse().transpose()
 '''
 
 class TestMatrix(unittest.TestCase):
-    def test_matrix_1(self):
-        self.assert()
+    def test_validation_1(self):
+	self.assertEqual(Matrix([[1, 0], [0, 1]]), Matrix([[1, 0], [0, 1]]), "Incorrect matrix configuration.")
     def test_vector_1(self):
-        self.assert()
+	self.assertEqual(Matrix([[1], [0]]), Matrix([[1], [0]]), "Incorrect vector configuration.")
+    def test_vector_2(self):
+	self.assertEqual(Matrix([[1, 0]]), Matrix([[1, 0]]), "Incorrect vector configuration.")
     def test_assign_1(self):
         self.assert()
     def test_fill_1(self):
