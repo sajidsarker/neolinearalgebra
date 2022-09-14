@@ -95,6 +95,7 @@ class TestMatrix(unittest.TestCase):
 	self.assertEqual(Matrix([[1], [0]]), Matrix([[1], [0]]), "Incorrect vector configuration.")
     def test_vector_2(self):
 	self.assertEqual(Matrix([[1, 0]]), Matrix([[1, 0]]), "Incorrect vector configuration.")
+    '''
     def test_assign_1(self):
         self.assert()
     def test_fill_1(self):
@@ -123,6 +124,7 @@ class TestMatrix(unittest.TestCase):
         self.assert()
     def test_matmul_2(self):
         self.assert()
+    '''
 
 if __name__ == '__main__':
 	unittest.main()
