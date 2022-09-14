@@ -1,9 +1,5 @@
 import unittest
 
-#import sys
-#sys.path.insert(1, './src/neolinearalgebra/')
-#import Matrix
-
 from neolinearalgebra import Matrix
 
 '''
