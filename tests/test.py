@@ -10,19 +10,12 @@ A (check: inconsistent dimensions)
 A (check: empty)
 A (check: data type)
 A (check: square matrix)
-A + A (3*3)
-A + B (3*3)
 A + C (check error) (2*2)
-A + B + A
-A - A
-A - B
-A - C (check error)
-A - B - A
 2 * A
 A * 2
 A * A
 A * B
-A + B * 3 - 2 * A + B * A
+A + B * 3 - 2 * A + B * A + 1
 A @ A
 A @ B
 A @ C
@@ -30,19 +23,12 @@ A @ V
 A @ I
 I @ A
 2 * (I @ A + B)
-A + B * 3 - 2 * A + B @ A
-A.assign()
+A + B * 3 - 2 * A + B @ A + 1
 A.assign() (check error)
-A.fill()
 A.fill() (check error)
-A.retrieve()
 A.retrieve() (check error)
-A.transpose()
-B.transpose()
 (A*B).transpose()
 (A@B).transpose()
-A.diagonal() (3*3)
-A.diagonal() (2*3)
 A.trace() (4*4)
 A.trace() (3*1)
 A.diagonal().trace()
