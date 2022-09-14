@@ -447,7 +447,7 @@ class Matrix:
         return Matrix(output)
 
 
-    def __lsub__(self, other) -> object:
+    def __rsub__(self, other) -> object:
         '''Gets the subtraction of the matrices.
         
         Args:
@@ -483,19 +483,6 @@ class Matrix:
         self.data = data
 
         return Matrix(output)
-
-
-    def __rsub__(self, other) -> object:
-        '''Gets the subtraction of the matrices.
-        
-        Args:
-            other (float): Scalar for pointwise subtraction
-            other (object): Matrix object for matrix subtraction
-        
-        Returns:
-            object: Matrix object containing the subtraction of the matrices.
-        '''
-        return self.__sub__(other)
 
 
     def __mul__(self, other) -> object:
