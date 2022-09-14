@@ -475,19 +475,6 @@ class Matrix:
         return Matrix(output)
 
 
-    def __lsub__(self, other) -&gt; object:
-        &#39;&#39;&#39;Gets the subtraction of the matrices.
-        
-        Args:
-            other (float): Scalar for pointwise subtraction
-            other (object): Matrix object for matrix subtraction
-        
-        Returns:
-            object: Matrix object containing the subtraction of the matrices.
-        &#39;&#39;&#39;
-        return self.__sub__(other)
-
-
     def __rsub__(self, other) -&gt; object:
         &#39;&#39;&#39;Gets the subtraction of the matrices.
         
@@ -498,7 +485,32 @@ class Matrix:
         Returns:
             object: Matrix object containing the subtraction of the matrices.
         &#39;&#39;&#39;
-        return self.__sub__(other)
+        if isinstance(other, Matrix) == False:
+            if isinstance(other, (int, float)) == False:
+                raise TypeError(&#39;Expecting a matrix or a scalar of type int or float only.&#39;)
+        else:
+            if self.shape != other.shape:
+                raise ValueError(&#39;Matrix dimensions are mismatched for pointwise matrix subtraction ({} != {})&#39;.format(self.shape, other.shape))
+
+        data, output = self.data.copy(), []
+
+        # Scalar subtraction
+        if isinstance(other, (int, float)):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(other - self.data[row][col])
+
+        # Matrix subtraction (pointwise)
+        if isinstance(other, Matrix):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(other.data[row][col] - self.data[row][col])
+
+        self.data = data
+
+        return Matrix(output)
 
 
     def __mul__(self, other) -&gt; object:
@@ -1108,19 +1120,6 @@ class Matrix:
         return Matrix(output)
 
 
-    def __lsub__(self, other) -&gt; object:
-        &#39;&#39;&#39;Gets the subtraction of the matrices.
-        
-        Args:
-            other (float): Scalar for pointwise subtraction
-            other (object): Matrix object for matrix subtraction
-        
-        Returns:
-            object: Matrix object containing the subtraction of the matrices.
-        &#39;&#39;&#39;
-        return self.__sub__(other)
-
-
     def __rsub__(self, other) -&gt; object:
         &#39;&#39;&#39;Gets the subtraction of the matrices.
         
@@ -1131,7 +1130,32 @@ class Matrix:
         Returns:
             object: Matrix object containing the subtraction of the matrices.
         &#39;&#39;&#39;
-        return self.__sub__(other)
+        if isinstance(other, Matrix) == False:
+            if isinstance(other, (int, float)) == False:
+                raise TypeError(&#39;Expecting a matrix or a scalar of type int or float only.&#39;)
+        else:
+            if self.shape != other.shape:
+                raise ValueError(&#39;Matrix dimensions are mismatched for pointwise matrix subtraction ({} != {})&#39;.format(self.shape, other.shape))
+
+        data, output = self.data.copy(), []
+
+        # Scalar subtraction
+        if isinstance(other, (int, float)):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(other - self.data[row][col])
+
+        # Matrix subtraction (pointwise)
+        if isinstance(other, Matrix):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(other.data[row][col] - self.data[row][col])
+
+        self.data = data
+
+        return Matrix(output)
 
 
     def __mul__(self, other) -&gt; object:
