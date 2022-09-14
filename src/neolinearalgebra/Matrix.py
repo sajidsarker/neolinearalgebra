@@ -319,6 +319,11 @@ class Matrix:
 
         # Calculate Determinants of Principal Minors
         adjugate_matrix = []
+        
+        if self.shape == (2, 2):
+            adjugate_matrix.append([self.data[1][1] * inv_det, -self.data[0][1] * inv_det])
+            adjugate_matrix.append([-self.data[1][0] * inv_det, self.data[0][0] * inv_det])
+            return Matrix(adjugate_matrix)
 
         for i in range(self.rows):
             adjugate_matrix.append([])
