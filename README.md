@@ -4,9 +4,11 @@
 
 **License:** MIT License
 
-**Version:** 0.1.5
+**Version:** 0.1.6
 
 **Article:** [NEO Linear Algebra for Python](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html)
+
+**PyPi.org:** [neolinearalgebra 0.1.6](https://pypi.org/project/neolinearalgebra/0.1.6/)
 
 ## Table of Contents
 1. [Motivation](https://github.com/sajidsarker/neolinearalgebra#1-motivation)
