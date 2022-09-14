@@ -1,11 +1,10 @@
 import unittest
 
-import sys
-sys.path.insert(1, './src/neolinearalgebra/')
+#import sys
+#sys.path.insert(1, './src/neolinearalgebra/')
+#import Matrix
 
-import file
-
-# from neolinearalgebra import Matrix
+from neolinearalgebra import Matrix
 
 '''
 A (check: list)
@@ -61,7 +60,6 @@ B.inverse() (check non invertible)
 C.inverse() (check non square)
 D.inverse() (check unimodal)
 A.inverse().transpose().trace()
-
 Commutative Law of Addition
 A+B=B+A
 Associative Law of Addition
@@ -89,13 +87,16 @@ A.transpose().inverse()=A.inverse().transpose()
 '''
 
 class TestMatrix(unittest.TestCase):
-    def test_validation_1(self):
-	self.assertEqual(Matrix([[1, 0], [0, 1]]), Matrix([[1, 0], [0, 1]]), "Incorrect matrix configuration.")
-    def test_vector_1(self):
-	self.assertEqual(Matrix([[1], [0]]), Matrix([[1], [0]]), "Incorrect vector configuration.")
-    def test_vector_2(self):
-	self.assertEqual(Matrix([[1, 0]]), Matrix([[1, 0]]), "Incorrect vector configuration.")
-    '''
+	def test_validation_1(self):
+		t = Matrix([[1, 0], [0, 1]])
+		self.assertEqual(Matrix([[1, 0], [0, 1]]), t, "Incorrect matrix configuration.")
+	def test_vector_1(self):
+		t = Matrix([[1], [0]])
+		self.assertEqual(Matrix([[1], [0]]), t, "Incorrect vector configuration.")
+	def test_vector_2(self):
+		t = Matrix([[1, 0]])
+		self.assertEqual(Matrix([[1, 0]]), t, "Incorrect vector configuration.")
+'''
     def test_assign_1(self):
         self.assert()
     def test_fill_1(self):
@@ -124,7 +125,7 @@ class TestMatrix(unittest.TestCase):
         self.assert()
     def test_matmul_2(self):
         self.assert()
-    '''
+'''
 
 if __name__ == '__main__':
 	unittest.main()
