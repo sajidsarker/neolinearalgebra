@@ -457,7 +457,32 @@ class Matrix:
         Returns:
             object: Matrix object containing the subtraction of the matrices.
         '''
-        return self.__sub__(other)
+        if isinstance(other, Matrix) == False:
+            if isinstance(other, (int, float)) == False:
+                raise TypeError('Expecting a matrix or a scalar of type int or float only.')
+        else:
+            if self.shape != other.shape:
+                raise ValueError('Matrix dimensions are mismatched for pointwise matrix subtraction ({} != {})'.format(self.shape, other.shape))
+
+        data, output = self.data.copy(), []
+
+        # Scalar subtraction
+        if isinstance(other, (int, float)):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(other - self.data[row][col])
+
+        # Matrix subtraction (pointwise)
+        if isinstance(other, Matrix):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(other.data[row][col] - self.data[row][col])
+
+        self.data = data
+
+        return Matrix(output)
 
 
     def __rsub__(self, other) -> object:
