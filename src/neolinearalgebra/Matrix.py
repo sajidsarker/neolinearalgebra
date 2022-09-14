@@ -3,7 +3,6 @@ import math
 
 class Matrix:
     '''Matrix class containing attributes and methods designed for Matrix operations in Linear Algebra.
-
     Attributes:
         data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
         rows (int): Number of rows of the matrix.
@@ -24,10 +23,8 @@ class Matrix:
 
     def check_integrity(self, data) -> bool:
         '''Checks provided values used to construct the matrix by conducting a series of integrity checks.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether all integrity checks have successfully passed for the provided data to be valid for conversion into a matrix. True if successfully passed all checks, False otherwise.
         '''
@@ -52,10 +49,8 @@ class Matrix:
     
     def check_if_list(self, data) -> bool:
         '''Checks if the provided matrix is a list.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether the provided data is a valid list for conversion into a matrix.
         '''
@@ -68,10 +63,8 @@ class Matrix:
 
     def check_if_list_of_lists(self, data) -> bool:
         '''Checks if the provided matrix is a list of lists.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether the provided data is a valid list of lists for conversion into a matrix.
         '''
@@ -88,10 +81,8 @@ class Matrix:
 
     def check_if_consistent_dimensions(self, data) -> bool:
         '''Checks if the provided matrix has consistent dimensions.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether the provided data has consistent dimensions in terms of rows and columns for conversion into a matrix.
         '''
@@ -104,10 +95,8 @@ class Matrix:
         
     def check_if_empty(self, data) -> bool:
         '''Checks if the provided matrix has empty columns.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether the provided data is an empty list or list of lists.
         '''
@@ -120,10 +109,8 @@ class Matrix:
     
     def check_if_numeric_dtype(self, data) -> bool:
         '''Checks if the provided matrix contains values of type int or float only.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether the provided data is int or float only for conversion into a matrix.
         '''
@@ -137,10 +124,8 @@ class Matrix:
     
     def check_if_square_matrix(self, data) -> bool:
         '''Checks if the provided matrix is a square matrix.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether the provided data has consistent square dimensions with rows and columns being equal for conversion into a matrix.
         '''
@@ -149,10 +134,8 @@ class Matrix:
     
     def check_if_vector(self, data) -> bool:
         '''Checks if the provided matrix is a row or column vector.
-
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
-
         Returns:
             bool: Whether the provided data has dimensions in terms of a row vector or a column vector for conversion into a matrix.
         '''
@@ -253,11 +236,13 @@ class Matrix:
         if self.check_if_vector(self.data) == False:
             raise Exception('Matrix must be a row or column vector only.')
 
-        output = []
+        data, output = self.data.copy(), []
 
         for row in range(self.rows):
             for col in range(self.cols):
                 output.append(self.data[row][col]**2)
+        
+        self.data = data
 
         return math.sqrt(sum(output))
 
@@ -364,20 +349,34 @@ class Matrix:
         '''Gets the sum of the matrices.
         
         Args:
-            other (object): Matrix object to be summed
+            other (float): Scalar for pointwise addition
+            other (object): Matrix object for matrix addition
         
         Returns:
             object: Matrix object containing the sum of the matrices.
         '''
-        if other.shape != self.shape:
-            raise ValueError('Matrix dimensions are mismatched ({} != {}). Please add (2) matrices of the same dimensions.'.format(self.shape, other.shape))
+        if isinstance(other, Matrix) == False:
+            if isinstance(other, (int, float)) == False:
+                raise TypeError('Expecting a matrix or a scalar of type int or float only.')
+        else:
+            if self.shape != other.shape:
+                raise ValueError('Matrix dimensions are mismatched for pointwise matrix addition ({} != {})'.format(self.shape, other.shape))
 
-        data, output = self.data, []
+        data, output = self.data.copy(), []
 
-        for row in range(self.rows):
-            output.append([])
-            for col in range(self.cols):
-                output[row].append(self.data[row][col] + other.data[row][col])
+        # Scalar addition
+        if isinstance(other, (int, float)):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(self.data[row][col] + other)
+
+        # Matrix addition (pointwise)
+        if isinstance(other, Matrix):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(self.data[row][col] + other.data[row][col])
 
         self.data = data
 
@@ -388,7 +387,8 @@ class Matrix:
         '''Gets the sum of the matrices.
         
         Args:
-            other (object): Matrix object to be summed
+            other (float): Scalar for pointwise addition
+            other (object): Matrix object for matrix addition
         
         Returns:
             object: Matrix object containing the sum of the matrices.
@@ -400,12 +400,11 @@ class Matrix:
         '''Gets the sum of the matrices.
         
         Args:
-            other (object): Matrix object to be summed
+            other (float): Scalar for pointwise addition
+            other (object): Matrix object for matrix addition
         
         Returns:
             object: Matrix object containing the sum of the matrices.
-        
-        Raises:
         '''
         return self.__add__(other)
 
@@ -414,20 +413,34 @@ class Matrix:
         '''Gets the subtraction of the matrices.
         
         Args:
-            other (object): Matrix object to be subtracted
+            other (float): Scalar for pointwise subtraction
+            other (object): Matrix object for matrix subtraction
         
         Returns:
             object: Matrix object containing the subtraction of the matrices.
         '''
-        if other.shape != self.shape:
-            raise ValueError('Matrix dimensions are mismatched ({} != {}). Please subtract (2) matrices of the same dimensions.'.format(self.shape, other.shape))
+        if isinstance(other, Matrix) == False:
+            if isinstance(other, (int, float)) == False:
+                raise TypeError('Expecting a matrix or a scalar of type int or float only.')
+        else:
+            if self.shape != other.shape:
+                raise ValueError('Matrix dimensions are mismatched for pointwise matrix subtraction ({} != {})'.format(self.shape, other.shape))
 
-        data, output = self.data, []
+        data, output = self.data.copy(), []
 
-        for row in range(self.rows):
-            output.append([])
-            for col in range(self.cols):
-                output[row].append(self.data[row][col] - other.data[row][col])
+        # Scalar subtraction
+        if isinstance(other, (int, float)):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(self.data[row][col] - other)
+
+        # Matrix subtraction (pointwise)
+        if isinstance(other, Matrix):
+            for row in range(self.rows):
+                output.append([])
+                for col in range(self.cols):
+                    output[row].append(self.data[row][col] - other.data[row][col])
 
         self.data = data
 
@@ -438,7 +451,8 @@ class Matrix:
         '''Gets the subtraction of the matrices.
         
         Args:
-            other (object): Matrix object to be subtracted
+            other (float): Scalar for pointwise subtraction
+            other (object): Matrix object for matrix subtraction
         
         Returns:
             object: Matrix object containing the subtraction of the matrices.
@@ -450,7 +464,8 @@ class Matrix:
         '''Gets the subtraction of the matrices.
         
         Args:
-            other (object): Matrix object to be subtracted
+            other (float): Scalar for pointwise subtraction
+            other (object): Matrix object for matrix subtraction
         
         Returns:
             object: Matrix object containing the subtraction of the matrices.
@@ -472,7 +487,7 @@ class Matrix:
             if isinstance(other, (int, float)) == False:
                 raise TypeError('Expecting a matrix or a scalar of type int or float only.')
         else:
-            if self.size != other.size:
+            if self.shape != other.shape:
                 raise ValueError('Matrix dimensions are mismatched for pointwise matrix multiplication ({} != {})'.format(self.shape, other.shape))
 
         data, output = self.data, []
