@@ -105,11 +105,11 @@ The directory structure for this repository is detailed below:
 └── setup.py
 ```
 
-Setup and configuration files for package installation is in the root **.** directory. The contents of the package is stored in **./neolinearalgebra/**. The singular class is *Matrix*.
+Setup and configuration files for package installation is in the root `.` directory. The contents of the package is stored in `./neolinearalgebra/`. The singular class is *Matrix*.
 
 ## 5. Unit Testing
 
-The aforementioned file *test.py* for performing unit testing is included in the main directory of the repository. You may append the program with additional functions for unit testing *Matrix.py*.
+The aforementioned file *test.py* for performing unit testing is included in the main directory of the repository. You may append the program with additional functions for unit testing `Matrix.py`.
 
 Please only perform unit testing after you have upgraded your version of the package locally during open source development.
 
@@ -138,6 +138,6 @@ from neolinearalgebra import Matrix
 
 ## 7. Documentation
 
-Docstrings highlight the behaviour of class attributes and class methods within files in this repository. A comprehensive reference on class attributes and methods are present in the **./Documentation** folder.
+Docstrings highlight the behaviour of class attributes and class methods within files in this repository. A comprehensive reference on class attributes and methods are present in the `./Documentation` folder.
 
 For information on the motivation behind this project, you may consult my [blog post](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html) for an overview.
