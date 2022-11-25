@@ -4,11 +4,11 @@
 
 **License:** MIT License
 
-**Version:** 0.2.1
+**Version:** 0.2.2
 
 **Article:** [NEO Linear Algebra for Python](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html)
 
-**PyPi.org:** [neolinearalgebra 0.2.1](https://pypi.org/project/neolinearalgebra/0.2.1/)
+**PyPi.org:** [neolinearalgebra 0.2.2](https://pypi.org/project/neolinearalgebra/0.2.2/)
 
 ## Table of Contents
 1. [Motivation](https://github.com/sajidsarker/neolinearalgebra#1-motivation)
@@ -141,6 +141,8 @@ from neolinearalgebra import Matrix
 
 ## 7. Documentation
 
-Docstrings highlight the behaviour of class attributes and class methods within files in this repository. A comprehensive reference on class attributes and methods are present in the `./Documentation` folder. A version of the same documentation is hosted online on my [blog](https://sajidsarker.github.io/docs/assets/documentation/neolinearalgebra/Documentation.html).
+Docstrings highlight the behaviour of class attributes and class methods within files in this repository. A comprehensive reference on class attributes and methods are present in the `./Documentation` folder.
+
+A version of the same documentation is hosted online on my [blog](https://sajidsarker.github.io/docs/assets/documentation/neolinearalgebra/Documentation.html).
 
 For information on the motivation behind this project, you may consult my [blog post](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html) for an overview.

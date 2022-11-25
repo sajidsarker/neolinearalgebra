@@ -5,12 +5,25 @@ class Matrix:
     '''Matrix class containing attributes and methods designed for Matrix operations in Linear Algebra.
     Attributes:
         data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+        data (tuple): Values used to construct the matrix. Must be a tuple of matrix dimensions and singular value of data type float only.
         rows (int): Number of rows of the matrix.
         cols (int): Number of columns of the matrix.
         shape (tuple): Tuple containing number of rows and columns of the matrix. Must be a tuple of data type int only.
         size (int): Number of elements in the matrix.
     '''
     def __init__(self, data):
+        if isinstance(data, tuple) == True:
+            rows, cols, vals = data
+            data = []
+
+            if (isinstance(rows, float) or isinstance(rows, int)) and (isinstance(cols, float) or isinstance(cols, int)) and (isinstance(vals, float) or isinstance(vals, int)):
+                if int(rows) >= 1 and int(cols) >= 1:
+                    for i in range(rows):
+                        data.append([vals] * cols)
+
+            if len(data) == 0:
+                data = [[]]
+
         if self.check_integrity(data) == False:
             raise ValueError('Matrix is incorrectly configured with empty matrix or row, column, or data type mismatch. Please provide a list of lists containing only ints or floats of consistent dimensions.')
 
@@ -191,6 +204,36 @@ class Matrix:
         return self.data[row][col]
 
 
+    def flatten(self, axis=0) -> object:
+        '''Flattens the matrix into a row vector.
+        
+        Args:
+            axis (int): Axis on which to flatten (Rows=0, Columns=1, Default=0).
+
+        Returns:
+            object: Matrix object containing the flattened matrix as a row vector.
+        '''
+        matrix = self.data.copy()
+
+        output = []
+
+        if axis == 0:
+            for row in range(self.rows):
+                output.extend(matrix[row])
+
+        if axis == 1:
+            for col in range(self.cols):
+                for row in range(self.rows):
+                    output.append(matrix[row][col])
+
+        if axis != 0 and axis != 1:
+            output = self.data.copy()
+        else:
+            output = [output]
+
+        return Matrix(output)
+
+
     def diagonal(self) -> object:
         '''Gets the diagonal of the matrix.
         
@@ -365,6 +408,25 @@ class Matrix:
             total += sum(matrix[row])
 
         return total
+    
+    
+    def mean(self) -> float:
+        '''Gets the mean of all the elements of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            float: Mean of all the elements of the matrix.
+        '''
+        matrix, output = self.data.copy(), 0
+        
+        for row in range(self.rows):
+            output += sum(matrix[row]) * self.cols
+
+        output /= self.rows * self.cols
+        
+        return output
 
 
     def __add__(self, other) -> object:
@@ -621,6 +683,52 @@ class Matrix:
             object: Matrix object containing the product of the matrices.
         '''
         return __matmul__(self, other)
+
+
+    def __getitem__(self, index) -> float:
+        '''Retrieves the value of the specified row and column in the matrix.
+
+        Args:
+            index (int): Row and column indices
+        
+        Returns:
+            float: Value specified with row and column in the matrix.
+        '''
+        row, col = index
+        output = []
+        
+        for i in self.data[row]:
+            if isinstance(i, int):
+                output.append(i)
+            if isinstance(i, list):
+                output.append(i[col])
+
+        return output
+
+
+    def __setitem__(self, index, value) -> None:
+        '''Sets specified row and column with a value in the matrix.
+
+        Args:
+            index (int): Row and column indices
+            value (int, float): Value to be assigned
+
+        Returns:
+            None
+        '''
+        row, col = index
+
+        if isinstance(value, int) or isinstance(value, float):
+            self.data[row][col] = value
+        
+        if isinstance(value, list):
+            if len(value) == len(self.data[row]) and if len(value[0]) == len(self.data[row][0]):
+                
+                for cols in self.data[row]:
+                    len(cols)
+                
+            for i in self.data[row]:
+                for j in i[col]:
 
 
     def __repr__(self) -> str:
