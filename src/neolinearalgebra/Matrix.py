@@ -348,6 +348,23 @@ class Matrix:
                 adjugate_matrix[row][col] *= (-1)**(i + j) * inv_det
 
         return Matrix(adjugate_matrix).transpose()
+        
+        
+    def sum(self) -> float:
+        '''Gets the sum of all the elements of the matrix.
+        
+        Args:
+            None
+        
+        Returns:
+            float: Sum of all the elements of the matrix.
+        '''
+        matrix, total = self.data.copy(), 0
+
+        for row in range(self.rows):
+            total += sum(matrix[row])
+
+        return total
 
 
     def __add__(self, other) -> object:
