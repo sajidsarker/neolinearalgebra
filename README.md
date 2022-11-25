@@ -4,7 +4,7 @@
 
 **License:** MIT License
 
-**Version:** 0.1.6
+**Version:** 0.2.1
 
 **Article:** [NEO Linear Algebra for Python](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html)
 
@@ -90,7 +90,10 @@ The directory structure for this repository is detailed below:
 ```bash
 /
 ├── Documentation/
-│   └── Documentation.html
+│   ├── neolinearalgebra/
+│   │   └── Matrix.html
+│   ├── Documentation.html
+│   └── search.js
 ├── src/
 │   └── neolinearalgebra/
 │       ├── Matrix.py
