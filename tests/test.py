@@ -73,72 +73,89 @@ class TestMatrix(unittest.TestCase):
 	def test_validation_1(self):
 		out = [[1, 0], [0, 1]]
 		self.assertEqual(Matrix([[1, 0], [0, 1]]).data, out, "Incorrect matrix configuration.")
+
 	def test_vector_1(self):
 		out = [[1], [0]]
 		self.assertEqual(Matrix([[1], [0]]).data, out, "Incorrect vector configuration.")
+
 	def test_vector_2(self):
 		out = [[1, 0]]
 		self.assertEqual(Matrix([[1, 0]]).data, out, "Incorrect vector configuration.")
+
 	def test_assign_1(self):
 		out = [[1, 2, 3], [0, 1, 0], [0, 0, 1]]
 		matrix = Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 		matrix.assign(0, 1, 2)
 		matrix.assign(0, 2, 3)
 		self.assertEqual(matrix.data, out, "Incorrect matrix assignment.")
+
 	def test_fill_1(self):
 		out = [[1, 1, 1], [1, 1, 1], [1, 1, 1]]
 		matrix = Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 		matrix.fill((0, 3), (0, 3), 1)
 		self.assertEqual(matrix.data, out, "Incorrect matrix fill.")
+
 	def test_retrieve_1(self):
 		out = 5
 		matrix = Matrix([[1, 0, 0], [0, 5, 0], [0, 0, 1]])
 		self.assertEqual(matrix.retrieve(1, 1), out, "Incorrect matrix retrieval.")
+
 	def test_diagonal_1(self):
 		out = [[1], [1], [1]]
 		matrix = Matrix([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 		self.assertEqual(matrix.diagonal().data, out, "Incorrect matrix diagonalisation.")
+
 	def test_diagonal_2(self):
 		out = [[1], [1]]
 		matrix = Matrix([[1, 0], [0, 1], [0, 0]])
 		self.assertEqual(matrix.diagonal().data, out, "Incorrect matrix diagonalisation.")
+
 	def test_magnitude_1(self):
 		out = math.sqrt(1**2 + 2**2 + 3**2)
 		matrix = Matrix([[1, 2, 3]])
 		self.assertEqual(matrix.magnitude(), out, "Incorrect matrix magnitude.")
+
 	def test_magnitude_2(self):
 		out = math.sqrt(1**2 + 2**2 + 3**2)
 		matrix = Matrix([[1], [2], [3]])
 		self.assertEqual(matrix.magnitude(), out, "Incorrect matrix magnitude.")
+
 	def test_transpose_1(self):
 		out = [[1, 2, 3], [1, 2, 3], [1, 2, 3]]
 		matrix = Matrix([[1, 1, 1], [2, 2, 2], [3, 3, 3]])
 		self.assertEqual(matrix.transpose().data, out, "Incorrect matrix transposition.")
+
 	def test_transpose_2(self):
 		out = [[1, 2], [1, 2], [1, 2]]
 		matrix = Matrix([[1, 1, 1], [2, 2, 2]])
 		self.assertEqual(matrix.transpose().data, out, "Incorrect matrix transposition.")
+
 	def test_add_1(self):
 		out = [[5, 5], [5, 5]]
 		matrix = Matrix([[0, 0], [0, 0]])
 		self.assertEqual((matrix + 5).data, out, "Incorrect matrix addition.")
+
 	def test_add_2(self):
 		out = [[5, 5], [5, 5]]
 		matrix = Matrix([[0, 0], [0, 0]])
 		self.assertEqual((5 + matrix).data, out, "Incorrect matrix addition.")
+
 	def test_add_3(self):
 		out = [[5, 5], [5, 5]]
 		matrix_1 = Matrix([[2, 2], [2, 2]])
 		matrix_2 = Matrix([[3, 3], [3, 3]])
 		self.assertEqual((matrix_1 + matrix_2).data, out, "Incorrect matrix addition.")
+
 	def test_sub_1(self):
 		out = [[-5, -5], [-5, -5]]
 		matrix = Matrix([[0, 0], [0, 0]])
 		self.assertEqual((matrix - 5).data, out, "Incorrect matrix subtraction.")
+
 	def test_sub_2(self):
 		out = [[5, 5], [5, 5]]
 		matrix = Matrix([[0, 0], [0, 0]])
 		self.assertEqual((5 - matrix).data, out, "Incorrect matrix subtraction.")
+
 	def test_sub_3(self):
 		out = [[-1, -1], [-1, -1]]
 		matrix_1 = Matrix([[2, 2], [2, 2]])
