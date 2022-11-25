@@ -8,7 +8,7 @@
 
 **Article:** [NEO Linear Algebra for Python](https://sajidsarker.github.io/2022/09/10/neo-linear-algebra-for-python.html)
 
-**PyPi.org:** [neolinearalgebra 0.1.6](https://pypi.org/project/neolinearalgebra/0.1.6/)
+**PyPi.org:** [neolinearalgebra 0.2.1](https://pypi.org/project/neolinearalgebra/0.2.1/)
 
 ## Table of Contents
 1. [Motivation](https://github.com/sajidsarker/neolinearalgebra#1-motivation)
