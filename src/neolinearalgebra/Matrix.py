@@ -440,7 +440,7 @@ class Matrix:
                 amt += sum(matrix[row])
             output = [amt]
         
-        if axis < 0 or axis > 2:
+        if axis not in [0, 1, 2]:
             return [0]
 
         return output
@@ -477,7 +477,7 @@ class Matrix:
             amt /= self.rows * self.cols
             output = [amt]
         
-        if axis < 0 or axis > 2:
+        if axis not in [0, 1, 2]:
             return [0]
         
         return output
@@ -772,17 +772,37 @@ class Matrix:
         '''
         row, col = index
 
-        if isinstance(value, int) or isinstance(value, float):
-            self.data[row][col] = value
-        
-        if isinstance(value, list):
-            if len(value) == len(self.data[row]) and if len(value[0]) == len(self.data[row][0]):
-                
-                for cols in self.data[row]:
-                    len(cols)
-                
-            for i in self.data[row]:
-                for j in i[col]:
+        # If not slice(s)
+        if isinstance(row, slice) == False and isinstance(col, slice) == False:
+            if isinstance(value, int) or isinstance(value, float):
+                self.data[row][col] = value
+            else:
+                raise TypeError('Expecting an int or a float.')
+
+        # If slice(s)
+        if isinstance(row, slice) or isinstance(col, slice):
+            if isinstance(value, list) and isinstance(value[0], list):
+                value_row = len(value)
+                value_col = len(value[0])
+                if value_row > 1 and value_col > 1:
+                    slice_row = row.stop - row.start
+                    slice_col = col.stop - col.start
+                    if value_row == slice_row and value_col == slice_col:
+                        for i in range(row.start, row.stop):
+                            for j in range(col.start, col.stop):
+                                self.data[i][j] = value[i][j]
+                    else:
+                        raise TypeError('Expecting a list of lists matching dimensions of slice.')
+                elif value_row > 1 and value_col == 1:
+                    slice_row = row.stop - row.start
+                    for i in range(row.start, row.stop):
+                        self.data[i][col] = value[i][col]
+                elif value_row == 1 and value_col > 1:
+                    slice_col = col.stop - col.start
+                    for j in range(col.start, col.stop):
+                        self.data[row][j] = value[row][j]
+            else:
+                raise TypeError('Expecting a list of lists matching dimensions of slice.')
 
 
     def __repr__(self) -> str:
