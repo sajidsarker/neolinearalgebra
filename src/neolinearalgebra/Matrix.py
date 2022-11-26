@@ -410,53 +410,75 @@ class Matrix:
         return Matrix(adjugate_matrix).transpose()
         
         
-    def sum(self, axis=0) -> float:
-        '''Gets the sum of all the elements of the matrix.
+    def sum(self, axis=0) -> list:
+        '''Gets the sum of elements in the matrix.
         
         Args:
-            None
+            axis (int): Axis on which to sum (Rows=0, Columns=1, All=2, Default=0).
         
         Returns:
-            float: Sum of all the elements of the matrix.
+            float: Sum of elements in the matrix.
         '''
         matrix = self.data.copy()
-        total, amt = [], 0
+        output, amt = [], 0
 
         if axis == 0:
             for row in range(self.rows):
                 amt = sum(matrix[row])
-                total.append([amt])
+                output.append([amt])
+                amt = 0
         
         if axis == 1:
             for col in range(self.cols):
                 for row in range(self.rows):
                     amt += matrix[row][col] 
-                total.append(amt)
+                output.append(amt)
                 amt = 0
         
         if axis == 2:
-            total = 0:
-                for row in range(self.rows):
-                    total += sum(matrix[row])
+            for row in range(self.rows):
+                amt += sum(matrix[row])
+            output = [amt]
+        
+        if axis < 0 or axis > 2:
+            return [0]
 
-        return total
+        return output
     
     
-    def mean(self) -> float:
-        '''Gets the mean of all the elements of the matrix.
+    def mean(self) -> list:
+        '''Gets the mean of elements in the matrix.
         
         Args:
-            None
+            axis (int): Axis on which to mean (Rows=0, Columns=1, All=2, Default=0).
         
         Returns:
-            float: Mean of all the elements of the matrix.
+            float: Mean of elements in the matrix.
         '''
-        matrix, output = self.data.copy(), 0
-        
-        for row in range(self.rows):
-            output += sum(matrix[row]) * self.cols
+        matrix = self.data.copy()
+        output, amt = [], 0
 
-        output /= self.rows * self.cols
+        if axis == 0:
+            for row in range(self.rows):
+                amt = sum(matrix[row])
+                output.append([amt / self.cols])
+
+        if axis == 1:
+            for col in range(self.cols):
+                for row in range(self.rows):
+                    amt += matrix[row][col]
+                output.append(amt / self.rows)
+                amt = 0
+
+        if axis == 2:
+            for row in range(self.rows):
+                amt += sum(matrix[row]) * self.cols
+
+            amt /= self.rows * self.cols
+            output = [amt]
+        
+        if axis < 0 or axis > 2:
+            return [0]
         
         return output
 
