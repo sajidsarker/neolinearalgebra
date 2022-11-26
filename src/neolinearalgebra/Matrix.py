@@ -784,6 +784,7 @@ class Matrix:
             if isinstance(value, list) and isinstance(value[0], list):
                 value_row = len(value)
                 value_col = len(value[0])
+
                 if value_row > 1 and value_col > 1:
                     slice_row = row.stop - row.start
                     slice_col = col.stop - col.start
@@ -793,14 +794,23 @@ class Matrix:
                                 self.data[i][j] = value[i][j]
                     else:
                         raise TypeError('Expecting a list of lists matching dimensions of slice.')
+
                 elif value_row > 1 and value_col == 1:
                     slice_row = row.stop - row.start
-                    for i in range(row.start, row.stop):
-                        self.data[i][col] = value[i][col]
+                    if value_row == slice_row:
+                        for i in range(row.start, row.stop):
+                            self.data[i][col] = value[i][col]
+                    else:
+                        raise TypeError('Expecting a list of lists matching dimensions of slice.')
+
                 elif value_row == 1 and value_col > 1:
                     slice_col = col.stop - col.start
-                    for j in range(col.start, col.stop):
-                        self.data[row][j] = value[row][j]
+                    if value_col == slice_col:
+                        for j in range(col.start, col.stop):
+                            self.data[row][j] = value[row][j]
+                    else:
+                        raise TypeError('Expecting a list of lists matching dimensions of slice.')
+
             else:
                 raise TypeError('Expecting a list of lists matching dimensions of slice.')
 
