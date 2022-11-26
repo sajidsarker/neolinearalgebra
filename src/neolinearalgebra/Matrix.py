@@ -3,6 +3,7 @@ import math
 
 class Matrix:
     '''Matrix class containing attributes and methods designed for Matrix operations in Linear Algebra.
+
     Attributes:
         data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
         data (tuple): Values used to construct the matrix. Must be a tuple of matrix dimensions and singular value of data type float only.
@@ -36,8 +37,10 @@ class Matrix:
 
     def check_integrity(self, data) -> bool:
         '''Checks provided values used to construct the matrix by conducting a series of integrity checks.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether all integrity checks have successfully passed for the provided data to be valid for conversion into a matrix. True if successfully passed all checks, False otherwise.
         '''
@@ -62,8 +65,10 @@ class Matrix:
     
     def check_if_list(self, data) -> bool:
         '''Checks if the provided matrix is a list.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether the provided data is a valid list for conversion into a matrix.
         '''
@@ -76,8 +81,10 @@ class Matrix:
 
     def check_if_list_of_lists(self, data) -> bool:
         '''Checks if the provided matrix is a list of lists.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether the provided data is a valid list of lists for conversion into a matrix.
         '''
@@ -94,8 +101,10 @@ class Matrix:
 
     def check_if_consistent_dimensions(self, data) -> bool:
         '''Checks if the provided matrix has consistent dimensions.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether the provided data has consistent dimensions in terms of rows and columns for conversion into a matrix.
         '''
@@ -108,8 +117,10 @@ class Matrix:
         
     def check_if_empty(self, data) -> bool:
         '''Checks if the provided matrix has empty columns.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether the provided data is an empty list or list of lists.
         '''
@@ -122,8 +133,10 @@ class Matrix:
     
     def check_if_numeric_dtype(self, data) -> bool:
         '''Checks if the provided matrix contains values of type int or float only.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether the provided data is int or float only for conversion into a matrix.
         '''
@@ -137,8 +150,10 @@ class Matrix:
     
     def check_if_square_matrix(self, data) -> bool:
         '''Checks if the provided matrix is a square matrix.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether the provided data has consistent square dimensions with rows and columns being equal for conversion into a matrix.
         '''
@@ -147,8 +162,10 @@ class Matrix:
     
     def check_if_vector(self, data) -> bool:
         '''Checks if the provided matrix is a row or column vector.
+
         Args:
             data (list): Values used to construct the matrix. Must be a list of lists of data type int or float only.
+
         Returns:
             bool: Whether the provided data has dimensions in terms of a row vector or a column vector for conversion into a matrix.
         '''
@@ -393,7 +410,7 @@ class Matrix:
         return Matrix(adjugate_matrix).transpose()
         
         
-    def sum(self) -> float:
+    def sum(self, axis=0) -> float:
         '''Gets the sum of all the elements of the matrix.
         
         Args:
@@ -402,10 +419,25 @@ class Matrix:
         Returns:
             float: Sum of all the elements of the matrix.
         '''
-        matrix, total = self.data.copy(), 0
+        matrix = self.data.copy()
+        total, amt = [], 0
 
-        for row in range(self.rows):
-            total += sum(matrix[row])
+        if axis == 0:
+            for row in range(self.rows):
+                amt = sum(matrix[row])
+                total.append([amt])
+        
+        if axis == 1:
+            for col in range(self.cols):
+                for row in range(self.rows):
+                    amt += matrix[row][col] 
+                total.append(amt)
+                amt = 0
+        
+        if axis == 2:
+            total = 0:
+                for row in range(self.rows):
+                    total += sum(matrix[row])
 
         return total
     
@@ -733,10 +765,10 @@ class Matrix:
 
     def __repr__(self) -> str:
         '''Gets the representation of the matrix.
-        
+
         Args:
             None
-        
+
         Returns:
             str: Matrix representation.
         '''
