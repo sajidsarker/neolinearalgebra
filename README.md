@@ -93,6 +93,7 @@ The directory structure for this repository is detailed below:
 │   ├── neolinearalgebra/
 │   │   └── Matrix.html
 │   ├── Documentation.html
+│   ├── neolinearalgebra.html
 │   └── search.js
 ├── src/
 │   └── neolinearalgebra/
