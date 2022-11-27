@@ -193,8 +193,8 @@ class Matrix:
         '''Fills specified row range and column range with a value in the matrix.
         
         Args:
-            rows (tuple): Tuple of row range (start, end) as dtype int
-            cols (tuple): Tuple of column range (start, end) as dtype int
+            rows (tuple): Tuple of row range (start, stop) as dtype int
+            cols (tuple): Tuple of column range (start, stop) as dtype int
             value (int, float): Value to be assigned
         
         Returns:
