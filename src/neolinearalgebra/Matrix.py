@@ -429,10 +429,11 @@ class Matrix:
                 amt = 0
         
         if axis == 1:
+            output.append([])
             for col in range(self.cols):
                 for row in range(self.rows):
                     amt += matrix[row][col] 
-                output.append(amt)
+                output[0].append(amt)
                 amt = 0
         
         if axis == 2:
@@ -443,10 +444,10 @@ class Matrix:
         if axis not in [0, 1, 2]:
             return [0]
 
-        return output
+        return Matrix(output)
     
     
-    def mean(self) -> list:
+    def mean(self, axis=0) -> list:
         '''Gets the mean of elements in the matrix.
         
         Args:
@@ -464,10 +465,11 @@ class Matrix:
                 output.append([amt / self.cols])
 
         if axis == 1:
+            output.append([])
             for col in range(self.cols):
                 for row in range(self.rows):
                     amt += matrix[row][col]
-                output.append(amt / self.rows)
+                output[0].append(amt / self.rows)
                 amt = 0
 
         if axis == 2:
@@ -480,7 +482,7 @@ class Matrix:
         if axis not in [0, 1, 2]:
             return [0]
         
-        return output
+        return Matrix(output)
 
 
     def __add__(self, other) -> object:
@@ -786,30 +788,48 @@ class Matrix:
                 value_col = len(value[0])
 
                 if value_row > 1 and value_col > 1:
-                    slice_row = row.stop - row.start
-                    slice_col = col.stop - col.start
+                    row_start = 0 if row.start == None else row.start
+                    row_stop = self.rows if row.stop == None else row.stop
+                    col_start = 0 if col.start == None else col.start
+                    col_stop = self.cols if col.stop == None else col.stop
+                    slice_row = row_stop - row_start
+                    slice_col = col_stop - col_start
                     if value_row == slice_row and value_col == slice_col:
-                        for i in range(row.start, row.stop):
-                            for j in range(col.start, col.stop):
-                                self.data[i][j] = value[i][j]
+                        k, l = 0, 0
+                        for i in range(row_start, row_stop):
+                            for j in range(col_start, col_stop):
+                                self.data[i][j] = value[k][l]
+                                l += 1
+                            k += 1
                     else:
                         raise TypeError('Expecting a list of lists matching dimensions of slice.')
 
                 elif value_row > 1 and value_col == 1:
-                    slice_row = row.stop - row.start
+                    row_start = 0 if row.start == None else row.start
+                    row_stop = self.rows if row.stop == None else row.stop
+                    slice_row = row_stop - row_start
                     if value_row == slice_row:
-                        for i in range(row.start, row.stop):
-                            self.data[i][col] = value[i][col]
+                        j = 0
+                        for i in range(row_start, row_stop):
+                            self.data[i][col] = value[j][0]
+                            j += 1
                     else:
                         raise TypeError('Expecting a list of lists matching dimensions of slice.')
 
                 elif value_row == 1 and value_col > 1:
-                    slice_col = col.stop - col.start
+                    col_start = 0 if col.start == None else col.start
+                    col_stop = self.cols if col.stop == None else col.stop
+                    slice_col = col_stop - col_start
                     if value_col == slice_col:
-                        for j in range(col.start, col.stop):
-                            self.data[row][j] = value[row][j]
+                        i = 0
+                        for j in range(col_start, col_stop):
+                            self.data[row][j] = value[0][i]
+                            i += 1
                     else:
                         raise TypeError('Expecting a list of lists matching dimensions of slice.')
+                
+                else:
+                    raise TypeError('Expecting a list of lists matching dimensions of slice.')
 
             else:
                 raise TypeError('Expecting a list of lists matching dimensions of slice.')
