@@ -243,7 +243,7 @@ class Matrix:
                 for row in range(self.rows):
                     output.append(matrix[row][col])
 
-        if axis != 0 and axis != 1:
+        if axis not in [0, 1]:
             output = self.data.copy()
         else:
             output = [output]
@@ -439,10 +439,10 @@ class Matrix:
         if axis == 2:
             for row in range(self.rows):
                 amt += sum(matrix[row])
-            output = [amt]
+            output = [[amt]]
         
         if axis not in [0, 1, 2]:
-            return [0]
+            return Matrix([[0]])
 
         return Matrix(output)
     
@@ -477,10 +477,10 @@ class Matrix:
                 amt += sum(matrix[row]) * self.cols
 
             amt /= self.rows * self.cols
-            output = [amt]
+            output = [[amt]]
         
         if axis not in [0, 1, 2]:
-            return [0]
+            return Matrix([[0]])
         
         return Matrix(output)
 
