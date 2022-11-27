@@ -787,6 +787,14 @@ class Matrix:
                 value_row = len(value)
                 value_col = len(value[0])
 
+                check = []
+
+                for i in range(value_row):
+                    check.extend([isinstance(x, (int, float)) for x in value[i]])
+
+                if sum(check) != len(check):
+                    raise TypeError('Expecting ints or floats.')
+
                 if value_row > 1 and value_col > 1:
                     row_start = 0 if row.start == None else row.start
                     row_stop = self.rows if row.stop == None else row.stop
