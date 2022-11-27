@@ -741,7 +741,7 @@ class Matrix:
         return __matmul__(self, other)
 
 
-    def __getitem__(self, index) -> float:
+    def __getitem__(self, index) -> object:
         '''Retrieves the value of the specified row and column in the matrix.
 
         Args:
@@ -752,14 +752,24 @@ class Matrix:
         '''
         row, col = index
         output = []
-        
-        for i in self.data[row]:
-            if isinstance(i, int):
-                output.append(i)
-            if isinstance(i, list):
-                output.append(i[col])
 
-        return output
+        if isinstance(row, int) and isinstance(col, int):
+            output.append([self.data[row][col]])
+
+        else:
+            for i in self.data[row]:
+                if isinstance(i, int):
+                    output.append(i)
+                if isinstance(i, list):
+                    if isinstance(col, int):
+                        output.append([i[col]])
+                    else:
+                        output.append(i[col])
+
+            if isinstance(output[0], list) == False:
+                output = [output]
+
+        return Matrix(output)
 
 
     def __setitem__(self, index, value) -> None:
@@ -786,7 +796,6 @@ class Matrix:
             if isinstance(value, list) and isinstance(value[0], list):
                 value_row = len(value)
                 value_col = len(value[0])
-
                 check = []
 
                 for i in range(value_row):
@@ -802,6 +811,7 @@ class Matrix:
                     col_stop = self.cols if col.stop == None else col.stop
                     slice_row = row_stop - row_start
                     slice_col = col_stop - col_start
+
                     if value_row == slice_row and value_col == slice_col:
                         k, l = 0, 0
                         for i in range(row_start, row_stop):
@@ -816,6 +826,7 @@ class Matrix:
                     row_start = 0 if row.start == None else row.start
                     row_stop = self.rows if row.stop == None else row.stop
                     slice_row = row_stop - row_start
+
                     if value_row == slice_row:
                         j = 0
                         for i in range(row_start, row_stop):
@@ -828,6 +839,7 @@ class Matrix:
                     col_start = 0 if col.start == None else col.start
                     col_stop = self.cols if col.stop == None else col.stop
                     slice_col = col_stop - col_start
+
                     if value_col == slice_col:
                         i = 0
                         for j in range(col_start, col_stop):

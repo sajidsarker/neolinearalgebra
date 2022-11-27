@@ -6,7 +6,7 @@ def read(fname):
 
 setup(
       name='neolinearalgebra',
-      version='0.2.3',
+      version='0.2.4',
       author='Sajid Sarker',
       author_email='sajid.sarker@gmail.com',
       description='NEO Linear Algebra package for Matrix Manipulation.',
