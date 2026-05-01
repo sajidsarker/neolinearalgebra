@@ -275,7 +275,7 @@ class TestMatrix(unittest.TestCase):
 			for i in range(n)
 		]
 		self.assertEqual(result.data, expected, "Incorrect matrix self-multiplication.")
- 
+
 	def test_matmul_ab(self):
 		"""A @ B – two different square matrices."""
 		A = Matrix(A_DATA)
@@ -287,7 +287,7 @@ class TestMatrix(unittest.TestCase):
 			for i in range(n)
 		]
 		self.assertEqual(result.data, expected, "Incorrect matrix multiplication A@B.")
- 
+
 	def test_matmul_nonsquare(self):
 		"""A(3×3) @ C(3×2) – valid non-square product."""
 		A = Matrix(A_DATA)
@@ -301,7 +301,7 @@ class TestMatrix(unittest.TestCase):
 		]
 		self.assertEqual(result.data, expected,
 						 "Incorrect non-square matrix multiplication.")
- 
+
 	def test_matmul_vector(self):
 		"""A @ V – matrix times a column vector."""
 		A = Matrix(A_DATA)
@@ -313,7 +313,7 @@ class TestMatrix(unittest.TestCase):
 		]
 		self.assertEqual(result.data, expected,
 						 "Incorrect matrix-vector multiplication.")
- 
+
 	def test_matmul_identity_right(self):
 		"""A @ I = A."""
 		A = Matrix(A_DATA)
@@ -368,7 +368,7 @@ class TestMatrix(unittest.TestCase):
 					for i in range(len(ew[0]))]
 		self.assertEqual(result.data, expected,
 						 "Incorrect transpose of element-wise product.")
- 
+
 	def test_transpose_matmul_product(self):
 		"""(A@B).transpose() – transpose of matrix product."""
 		A = Matrix(A_DATA)
@@ -381,30 +381,30 @@ class TestMatrix(unittest.TestCase):
 		expected = [[ab[j][i] for j in range(n)] for i in range(n)]
 		self.assertEqual(result.data, expected,
 						 "Incorrect transpose of matrix product.")
- 
+
  	def test_trace_4x4(self):
 		"""trace() on a 4×4 matrix."""
-		data = [[1, 2, 3, 4],
+		data = [[1, 2, 3, 4], 
 				[5, 6, 7, 8],
 				[9, 10, 11, 12],
 				[13, 14, 15, 16]]
 		m = Matrix(data)
 		self.assertEqual(m.trace(), 1 + 6 + 11 + 16,
 						 "Incorrect trace for 4×4 matrix.")
- 
+
 	def test_trace_non_square_error(self):
 		"""trace() on a non-square matrix must raise an error."""
 		m = Matrix([[1, 2, 3]])   # 1×3
 		with self.assertRaises(Exception):
 			m.trace()
- 
+
 	def test_trace_via_diagonal(self):
 		"""A.diagonal().trace() – trace computed through the diagonal vector."""
 		A = Matrix(A_DATA)
 		diag_sum = sum(A_DATA[i][i] for i in range(len(A_DATA)))
 		self.assertEqual(A.diagonal().trace(), diag_sum,
 						 "diagonal().trace() does not match expected sum.")
- 
+
 	def test_trace_elementwise_product_transpose(self):
 		"""(A*B).transpose().trace()."""
 		A = Matrix(A_DATA)
@@ -414,7 +414,7 @@ class TestMatrix(unittest.TestCase):
 		expected = sum(A_DATA[i][i] * B_DATA[i][i] for i in range(len(A_DATA)))
 		self.assertEqual(result_trace, expected,
 						 "Incorrect (A*B).T trace.")
- 
+
 	def test_trace_matmul_product_transpose(self):
 		"""(A@B).transpose().trace()."""
 		A = Matrix(A_DATA)
@@ -434,26 +434,26 @@ class TestMatrix(unittest.TestCase):
 		# det([[2,1,3],[0,4,1],[5,2,6]]) = 2*(24-2) - 1*(0-5) + 3*(0-20) = 44+5-60 = -11
 		self.assertAlmostEqual(A.determinant(), -11, places=9,
 							   msg="Incorrect determinant for A.")
- 
+
 	def test_determinant_b(self):
 		"""det(B) for invertible 3×3."""
 		B = Matrix(B_DATA)
 		# det([[1,2,0],[3,1,4],[2,0,1]]) = 1*(1-0) - 2*(3-8) + 0 = 1+10 = 11
 		self.assertAlmostEqual(B.determinant(), 11, places=9,
 							   msg="Incorrect determinant for B.")
- 
+
 	def test_determinant_singular(self):
 		"""det of a singular (non-invertible) matrix must be 0."""
 		S = Matrix(SNG_DATA)
 		self.assertAlmostEqual(S.determinant(), 0, places=9,
 							   msg="Determinant of singular matrix should be 0.")
- 
+
 	def test_determinant_1x1(self):
 		"""det([[k]]) = k."""
 		D = Matrix(D_DATA)
 		self.assertAlmostEqual(D.determinant(), 1, places=9,
 							   msg="Incorrect 1×1 determinant.")
- 
+
 	def test_determinant_non_square_error(self):
 		"""determinant() on a non-square matrix must raise an error."""
 		C = Matrix(C_DATA)
@@ -467,26 +467,26 @@ class TestMatrix(unittest.TestCase):
 		result = A @ A.inverse()
 		self.assertTrue(approx_equal(result, I),
 						"A @ A.inverse() should equal the identity.")
- 
+
 	def test_inverse_singular_error(self):
 		"""inverse() on a singular matrix must raise an error."""
 		S = Matrix(SNG_DATA)
 		with self.assertRaises(Exception):
 			S.inverse()
- 
+
 	def test_inverse_non_square_error(self):
 		"""inverse() on a non-square matrix must raise an error."""
 		C = Matrix(C_DATA)
 		with self.assertRaises(Exception):
 			C.inverse()
- 
+
 	def test_inverse_1x1(self):
 		"""inverse of [[k]] = [[1/k]]."""
 		D = Matrix([[4]])
 		result = D.inverse()
 		self.assertAlmostEqual(result.data[0][0], 0.25, places=9,
 							   msg="Incorrect 1×1 inverse.")
- 
+
 	def test_inverse_transpose_trace(self):
 		"""A.inverse().transpose().trace() – combined operation."""
 		A = Matrix(A_DATA)
@@ -528,7 +528,7 @@ class TestMatrix(unittest.TestCase):
 		rhs = A @ B + A @ C
 		self.assertTrue(approx_equal(lhs, rhs),
 						"Distributive law A@(B+C)=A@B+A@C failed.")
- 
+
 	def test_law_distributive_scalar(self):
 		"""k * (A + B) = k*A + k*B."""
 		k = 5
@@ -544,7 +544,7 @@ class TestMatrix(unittest.TestCase):
 		A = Matrix(A_DATA)
 		self.assertEqual(A.transpose().transpose().data, A_DATA,
 						 "Double transpose should return original matrix.")
- 
+
 	def test_law_transpose_sum(self):
 		"""(A + B)^T = A^T + B^T."""
 		A = Matrix(A_DATA)
@@ -553,7 +553,7 @@ class TestMatrix(unittest.TestCase):
 		rhs = A.transpose() + B.transpose()
 		self.assertEqual(lhs.data, rhs.data,
 						 "(A+B).T = A.T+B.T failed.")
- 
+
 	def test_law_transpose_product(self):
 		"""(A @ B)^T = B^T @ A^T."""
 		A = Matrix(A_DATA)
@@ -562,7 +562,7 @@ class TestMatrix(unittest.TestCase):
 		rhs = B.transpose() @ A.transpose()
 		self.assertTrue(approx_equal(lhs, rhs),
 						"(A@B).T = B.T@A.T failed.")
- 
+
 	def test_law_transpose_triple_product(self):
 		"""A @ B @ C = (C^T @ B^T @ A^T)^T."""
 		A = Matrix(A_DATA)
@@ -572,19 +572,19 @@ class TestMatrix(unittest.TestCase):
 		rhs = (C.transpose() @ B.transpose() @ A.transpose()).transpose()
 		self.assertTrue(approx_equal(lhs, rhs),
 						"A@B@C = (C.T@B.T@A.T).T failed.")
- 
+
 	def test_law_identity_right(self):
 		"""A @ I = A."""
 		A = Matrix(A_DATA)
 		I = identity(3)
 		self.assertEqual((A @ I).data, A_DATA, "A@I should equal A.")
- 
+
 	def test_law_identity_left(self):
 		"""I @ A = A."""
 		A = Matrix(A_DATA)
 		I = identity(3)
 		self.assertEqual((I @ A).data, A_DATA, "I@A should equal A.")
- 
+
 	def test_law_identity_commute(self):
 		"""A @ I = I @ A."""
 		A = Matrix(A_DATA)
@@ -597,21 +597,21 @@ class TestMatrix(unittest.TestCase):
 		I = identity(3)
 		self.assertTrue(approx_equal(A @ A.inverse(), I),
 						"A @ A.inverse() should equal I.")
- 
+
 	def test_law_inverse_left(self):
 		"""A^{-1} @ A = I."""
 		A = Matrix(A_DATA)
 		I = identity(3)
 		self.assertTrue(approx_equal(A.inverse() @ A, I),
 						"A.inverse() @ A should equal I.")
- 
+
 	def test_law_inverse_involution(self):
 		"""(A^{-1})^{-1} = A."""
 		A = Matrix(A_DATA)
 		result = A.inverse().inverse()
 		self.assertTrue(approx_equal(result, A),
 						"(A.inverse()).inverse() should equal A.")
- 
+
 	def test_law_inverse_product_ab(self):
 		"""(A @ B)^{-1} = B^{-1} @ A^{-1}."""
 		A = Matrix(A_DATA)
@@ -620,7 +620,7 @@ class TestMatrix(unittest.TestCase):
 		rhs = B.inverse() @ A.inverse()
 		self.assertTrue(approx_equal(lhs, rhs),
 						"(A@B).inverse() = B.inverse()@A.inverse() failed.")
- 
+
 	def test_law_inverse_product_abc(self):
 		"""(A @ B @ C)^{-1} = C^{-1} @ B^{-1} @ A^{-1}."""
 		A = Matrix(A_DATA)
@@ -630,7 +630,7 @@ class TestMatrix(unittest.TestCase):
 		rhs = C.inverse() @ B.inverse() @ A.inverse()
 		self.assertTrue(approx_equal(lhs, rhs),
 						"(A@B@C).inverse() = C.inv@B.inv@A.inv failed.")
- 
+
 	def test_law_transpose_inverse_commute(self):
 		"""(A^T)^{-1} = (A^{-1})^T."""
 		A = Matrix(A_DATA)
